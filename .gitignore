@@ -37,3 +37,5 @@ msbuild.wrn
 .vs/
 
 .env
+
+secrets/
