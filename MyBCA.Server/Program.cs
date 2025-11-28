@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Options;
 using MyBCA.Server.Services.Bus;
 using MyBCA.Server.Services.Links;
+using MyBCA.Server.Services.Notifications;
 using MyBCA.Server.Services.Nutrislice;
 using Prometheus;
 
@@ -58,6 +59,9 @@ builder.Services.AddMetricServer(options =>
 {
     options.Port = builder.Configuration.GetValue<ushort>("Metrics:Port");
 });
+
+builder.Services.AddSingleton<FcmService>();
+builder.Services.AddHostedService<DailyBusNotificationService>();
 
 var app = builder.Build();
 

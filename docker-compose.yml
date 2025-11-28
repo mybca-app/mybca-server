@@ -7,6 +7,9 @@ services:
     environment:
       - SERVER_APP_PORT=${SERVER_APP_PORT:-8080}
       - TZ=${TZ:-America/New_York}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/firebase-service-account.json
+    volumes:
+      - ./secrets/firebase-service-account.json:/app/secrets/firebase-service-account.json:ro
     ports:
       - "${SERVER_APP_PORT}:8080"
     expose:
