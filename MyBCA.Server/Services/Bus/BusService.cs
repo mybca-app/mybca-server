@@ -31,7 +31,7 @@ public class BusService(ILogger<BusService> logger, HttpClient httpClient, IOpti
     {
         var nowTime = now.TimeOfDay;
         if (IsBetween(nowTime, new TimeSpan(12, 25, 0), new TimeSpan(12, 50, 0))
-            || IsBetween(nowTime, new TimeSpan(16, 5, 0), new TimeSpan(16, 30, 0)))
+            || IsBetween(nowTime, new TimeSpan(16, 0, 0), new TimeSpan(16, 30, 0)))
         {
             return options.Value.CacheTtlDismissalTime;
         }
