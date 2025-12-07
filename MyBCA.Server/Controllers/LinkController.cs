@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Shared.Models.Links;
 using MyBCA.Shared.Models.Links.Responses;
 using MyBCA.Server.Services.Links;
 using Microsoft.AspNetCore.Cors;
@@ -7,9 +6,9 @@ using Microsoft.AspNetCore.Cors;
 namespace MyBCA.Server.Controllers;
 
 [ApiController]
-[Route("api/links")]
+[Route("api/Links")]
 [EnableCors("AllowAll")]
-public class LinkApiController(ILinkService linkService) : ControllerBase
+public class LinkController(ILinkService linkService) : ControllerBase
 {
     [EndpointSummary("Retrieves a list of quick links to key BCA services")]
     [HttpGet]

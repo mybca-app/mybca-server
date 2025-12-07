@@ -9,7 +9,7 @@ namespace MyBCA.Server.Controllers;
 [ApiController]
 [Route("api/lunch/[action]")]
 [EnableCors("AllowAll")]
-public class NutrisliceApiController(INutrisliceService menuService) : ControllerBase
+public class NutrisliceController(INutrisliceService menuService) : ControllerBase
 {
     [EndpointSummary("Retrieves the lunch menu for the week")]
     [HttpGet]

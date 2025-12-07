@@ -14,7 +14,7 @@ builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 builder.Services.AddProblemDetails();
 
@@ -65,13 +65,6 @@ builder.Services.AddHostedService<DailyBusNotificationService>();
 
 var app = builder.Build();
 
-var rewriteOptions = new RewriteOptions()
-    .AddRedirect("^h$", "NewTab", (int)HttpStatusCode.MovedPermanently)
-    .AddRedirect("^busapp$", "Bus/List", (int)HttpStatusCode.MovedPermanently)
-    .AddRedirect("^busapp/$", "Bus/List", (int)HttpStatusCode.MovedPermanently);
-app.UseRewriter(rewriteOptions);
-
-
 app.UseExceptionHandler("/error");
 app.Map("/error", async httpContext =>
 {
@@ -108,12 +101,6 @@ app.UseHttpMetrics();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
 app.MapControllers();
 
 app.UseCors();
