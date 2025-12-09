@@ -30,8 +30,8 @@ public partial class DailyBusNotificationService(FcmService fcmService, IBusServ
                 var normalizedTown = Regex.Replace(position.Town.ToLower(), "[^a-zA-Z0-9-_.~%]", "-");
                 var topic = $"bus-subscribed-{normalizedTown}";
                 var title = position.Location == ""
-                    ? $"{position.Town} hasn't arrived yet"
-                    : $"{position.Town} is boarding in {position.Location}";
+                    ? $"Not arrived: {position.Town}"
+                    : $"{position.Location}: {position.Town} has arrived";
 
                 await fcmService.SendMessageAsync(topic, title, "Open the myBCA app for more bus info.");
             }
