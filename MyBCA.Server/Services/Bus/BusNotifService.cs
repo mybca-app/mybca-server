@@ -69,7 +69,7 @@ public partial class BusNotifService(FcmService fcmService, HttpClient httpClien
 
                 var newPositionMap = BusSheetReader.ParseTableToPositionMap(doc);
                 var changes = GetPositionChanges(newPositionMap);
-                _positionMap = newPositionMap;
+
 
                 if (changes.Count > 0)
                 {
@@ -104,10 +104,15 @@ public partial class BusNotifService(FcmService fcmService, HttpClient httpClien
 
                 logger.LogDebug("Next run: {NextRun}", nextRun);
 
-                foreach (var change in changes)
+                if (_positionMap is not null)
                 {
-                    await SendPositionChangeNotif(change);
+                    foreach (var change in changes)
+                    {
+                        await SendPositionChangeNotif(change);
+                    }
                 }
+
+                _positionMap = newPositionMap;
 
                 var delay = nextRun - DateTime.Now;
                 if (delay < TimeSpan.Zero)
