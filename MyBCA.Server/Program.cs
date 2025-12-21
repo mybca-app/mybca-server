@@ -61,7 +61,15 @@ builder.Services.AddMetricServer(options =>
 });
 
 builder.Services.AddSingleton<FcmService>();
-builder.Services.AddHostedService<DailyBusNotificationService>();
+
+builder.Services.AddHttpClient<BusNotifService>((sp, client) =>
+{
+    var options = sp.GetRequiredService<IOptions<BusOptions>>().Value;
+    client.BaseAddress = new Uri(options.BaseUrl);
+});
+
+builder.Services.AddHostedService(sp =>
+    sp.GetRequiredService<BusNotifService>());
 
 var app = builder.Build();
 
