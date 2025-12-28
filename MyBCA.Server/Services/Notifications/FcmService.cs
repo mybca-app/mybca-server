@@ -1,27 +1,42 @@
 using FirebaseAdmin;
 using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.Extensions.Options;
 
 namespace MyBCA.Server.Services.Notifications;
 
 public class FcmService
 {
-    private readonly FirebaseMessaging _messaging;
+    private readonly FirebaseMessaging? _messaging;
     private readonly ILogger<FcmService> _logger;
+    private readonly IOptions<FcmOptions> _options;
 
-    public FcmService(ILogger<FcmService> logger)
+    public FcmService(ILogger<FcmService> logger, IOptions<FcmOptions> options)
     {
-        var app = FirebaseApp.DefaultInstance ?? FirebaseApp.Create(new AppOptions
+        _options = options;
+        if (_options.Value.NotificationsEnabled)
         {
-            Credential = GoogleCredential.GetApplicationDefault()
-        });
-        
+            var app = FirebaseApp.DefaultInstance ?? FirebaseApp.Create(new AppOptions
+            {
+                Credential = GoogleCredential.GetApplicationDefault()
+            });
+
+            _messaging = FirebaseMessaging.GetMessaging(app);
+        }
+        else
+        {
+            logger.LogInformation("Not setting up Firebase because notifications are disabled.");
+        }
         _logger = logger;
-        _messaging = FirebaseMessaging.GetMessaging(app);
     }
 
     public async Task SendMessageAsync(string topic, string title, string body)
     {
+        if (!_options.Value.NotificationsEnabled)
+        {
+            return;
+        }
+
         var message = new Message
         {
             Topic = topic,
@@ -34,7 +49,7 @@ public class FcmService
 
         try
         {
-            var response = await _messaging.SendAsync(message);
+            var response = await _messaging!.SendAsync(message);
             _logger.LogInformation("FCM sent: {Response}", response);
         }
         catch (Exception ex)

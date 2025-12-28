@@ -54,13 +54,16 @@ builder.Services.Configure<MyBCA.Server.Services.Links.LinkOptions>(
 );
 builder.Services.AddSingleton<ILinkService, LinkService>();
 
+builder.Services.Configure<FcmOptions>(
+    builder.Configuration.GetSection("Notifications")
+);
+builder.Services.AddSingleton<FcmService>();
+
 builder.Services.UseHttpClientMetrics();
 builder.Services.AddMetricServer(options =>
 {
     options.Port = builder.Configuration.GetValue<ushort>("Metrics:Port");
 });
-
-builder.Services.AddSingleton<FcmService>();
 
 builder.Services.AddHttpClient<BusNotifService>((sp, client) =>
 {
