@@ -1,7 +1,8 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Rewrite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using MyBCA.Server.Data;
 using MyBCA.Server.Services.Bus;
 using MyBCA.Server.Services.Links;
 using MyBCA.Server.Services.Notifications;
@@ -19,6 +20,14 @@ builder.Services.AddMemoryCache();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddOpenApi();
+
+var connectionString = builder.Configuration.GetConnectionString("MySql");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySQL(
+        connectionString
+    )
+);
 
 builder.Services.AddCors(options =>
 {
@@ -65,14 +74,16 @@ builder.Services.AddMetricServer(options =>
     options.Port = builder.Configuration.GetValue<ushort>("Metrics:Port");
 });
 
-builder.Services.AddHttpClient<BusNotifService>((sp, client) =>
+builder.Services.AddHttpClient<BusScanService>((sp, client) =>
 {
     var options = sp.GetRequiredService<IOptions<BusOptions>>().Value;
     client.BaseAddress = new Uri(options.BaseUrl);
 });
 
 builder.Services.AddHostedService(sp =>
-    sp.GetRequiredService<BusNotifService>());
+    sp.GetRequiredService<BusScanService>());
+
+builder.Services.AddScoped<IBusLogService, BusLogService>();
 
 var app = builder.Build();
 
