@@ -110,8 +110,8 @@ public partial class BusScanService(IServiceProvider services, FcmService fcmSer
                     {
                         using (var scope = services.CreateScope())
                         {
-                            var busLogService = scope.ServiceProvider.GetRequiredService<IBusLogService>();
-                            await busLogService.CreateArrivalLog(change.Town, change.NewPosition);
+                            var busLogService = scope.ServiceProvider.GetRequiredService<IBusArrivalService>();
+                            await busLogService.CreateArrivalAsync(change.Town, change.NewPosition);
                         }
                         await SendPositionChangeNotif(change);
                     }
