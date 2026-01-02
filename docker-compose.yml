@@ -10,7 +10,7 @@ services:
       - SERVER_APP_PORT=${SERVER_APP_PORT:-8080}
       - TZ=${TZ:-America/New_York}
       - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/firebase-service-account.json
-      - ConnectionStrings__MySql="server=mysql;port=3306;database=${MYSQL_DATABASE:-mybca};user=${MYSQL_USER:-mybca};password=${MYSQL_PASSWORD:-password}"
+      - ConnectionStrings__MySql=server=mysql;port=3306;database=${MYSQL_DATABASE:-mybca};user=${MYSQL_USER:-mybca};password=${MYSQL_PASSWORD:-password}
     volumes:
       - ./secrets/firebase-service-account.json:/app/secrets/firebase-service-account.json:ro
     ports:
