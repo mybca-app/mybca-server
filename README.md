@@ -16,7 +16,8 @@ This project does not handle the event system of the app.
 - Bus notifications are sent via Firebase Cloud Messaging. A separate service
   scans the bus spreadsheet for changes. When a change is detected, the service
   sends a notification to all users who have starredthat bus.
-- Bus arrivals are logged in a MySQL database.
+- Bus arrivals are logged in a MySQL database. Bus arrival history is served at
+  a dedicated API endpoint.
 
 ### Lunch
 

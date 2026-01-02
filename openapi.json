@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://mybca.link"
+      "url": "https://mybca.link/"
     }
   ],
   "paths": {
@@ -33,6 +33,55 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BusApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Bus/{bus}/History": {
+      "get": {
+        "tags": [
+          "Bus"
+        ],
+        "summary": "Retrieves a history of a bus's arrivals",
+        "parameters": [
+          {
+            "name": "bus",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BusArrival"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BusArrival"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BusArrival"
+                  }
                 }
               }
             }
@@ -215,6 +264,33 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          }
+        }
+      },
+      "BusArrival": {
+        "required": [
+          "busName",
+          "busPosition"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "busName": {
+            "maxLength": 100,
+            "type": "string",
+            "nullable": true
+          },
+          "busPosition": {
+            "maxLength": 50,
+            "type": "string",
+            "nullable": true
+          },
+          "arrivalTime": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },

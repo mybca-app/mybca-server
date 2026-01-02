@@ -6,7 +6,7 @@
 
 Base URLs:
 
-* <a href="https://mybca.link">https://mybca.link</a>
+* <a href="https://mybca.link/">https://mybca.link/</a>
 
 <h1 id="mybca-server-v1-bus">Bus</h1>
 
@@ -42,6 +42,61 @@ Base URLs:
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[BusApiResponse](#schemabusapiresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__api_Bus_{bus}_History
+
+> Code samples
+
+`GET /api/Bus/{bus}/History`
+
+*Retrieves a history of a bus's arrivals*
+
+<h3 id="get__api_bus_{bus}_history-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|bus|path|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```
+[{"id":0,"busName":"string","busPosition":"string","arrivalTime":"2019-08-24T14:15:22Z"}]
+```
+
+```json
+[
+  {
+    "id": 0,
+    "busName": "string",
+    "busPosition": "string",
+    "arrivalTime": "2019-08-24T14:15:22Z"
+  }
+]
+```
+
+<h3 id="get__api_bus_{bus}_history-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
+
+<h3 id="get__api_bus_{bus}_history-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[BusArrival](#schemabusarrival)]|false|none|none|
+|» id|integer(int32)|false|none|none|
+|» busName|string¦null|true|none|none|
+|» busPosition|string¦null|true|none|none|
+|» arrivalTime|string(date-time)|false|none|none|
 
 <aside class="success">
 This operation does not require authentication
@@ -310,6 +365,32 @@ This operation does not require authentication
 |data|object|true|none|none|
 |» **additionalProperties**|string|false|none|none|
 |expiry|string(date-time)¦null|true|none|none|
+
+<h2 id="tocS_BusArrival">BusArrival</h2>
+<!-- backwards compatibility -->
+<a id="schemabusarrival"></a>
+<a id="schema_BusArrival"></a>
+<a id="tocSbusarrival"></a>
+<a id="tocsbusarrival"></a>
+
+```json
+{
+  "id": 0,
+  "busName": "string",
+  "busPosition": "string",
+  "arrivalTime": "2019-08-24T14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|integer(int32)|false|none|none|
+|busName|string¦null|true|none|none|
+|busPosition|string¦null|true|none|none|
+|arrivalTime|string(date-time)|false|none|none|
 
 <h2 id="tocS_FoodItem">FoodItem</h2>
 <!-- backwards compatibility -->
