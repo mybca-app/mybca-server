@@ -24,6 +24,13 @@ This project does not handle the event system of the app.
   - Lunch menus are cached in a basic in-memory cache.
 - Lunch information is served via a REST API endpoint.
 
+### News
+
+- The myBCA server fetches the latest stories from the school newspaper, the
+  *Academy Chronicle*.
+- The latest stories are served via a REST API endpoint for easy consumption by
+  the app.
+
 ### Quick Links
 
 - Quick links to BCA-related services (PowerSchool, Schoology, etc.) are served

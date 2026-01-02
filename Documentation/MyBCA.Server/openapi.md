@@ -8,13 +8,13 @@ Base URLs:
 
 * <a href="https://mybca.link">https://mybca.link</a>
 
-<h1 id="mybca-server-v1-busapi">BusApi</h1>
+<h1 id="mybca-server-v1-bus">Bus</h1>
 
-## get__api_bus_List
+## get__api_Bus_List
 
 > Code samples
 
-`GET /api/bus/List`
+`GET /api/Bus/List`
 
 *Retrieves a map of each bus to its position*
 
@@ -47,13 +47,13 @@ Base URLs:
 This operation does not require authentication
 </aside>
 
-<h1 id="mybca-server-v1-linkapi">LinkApi</h1>
+<h1 id="mybca-server-v1-link">Link</h1>
 
-## get__api_links
+## get__api_Links
 
 > Code samples
 
-`GET /api/links`
+`GET /api/Links`
 
 *Retrieves a list of quick links to key BCA services*
 
@@ -62,45 +62,116 @@ This operation does not require authentication
 > 200 Response
 
 ```
-[{"name":"string","target":"http://example.com"}]
+{"count":0,"data":[{"name":"string","target":"http://example.com"}]}
 ```
 
 ```json
-[
-  {
-    "name": "string",
-    "target": "http://example.com"
-  }
-]
+{
+  "count": 0,
+  "data": [
+    {
+      "name": "string",
+      "target": "http://example.com"
+    }
+  ]
+}
 ```
 
 <h3 id="get__api_links-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
-
-<h3 id="get__api_links-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[Link](#schemalink)]|false|none|none|
-|» name|string|true|none|none|
-|» target|string(uri)|true|none|none|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[LinkApiResponse](#schemalinkapiresponse)|
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-<h1 id="mybca-server-v1-lunchapi">LunchApi</h1>
+<h1 id="mybca-server-v1-news">News</h1>
 
-## get__api_lunch_Week
+## get__api_News_Latest
 
 > Code samples
 
-`GET /api/lunch/Week`
+`GET /api/News/Latest`
+
+*Retrieves the latest news story*
+
+> Example responses
+
+> 200 Response
+
+```
+{"data":{"title":"string","link":"string","imageLink":"string","createdAt":"2019-08-24T14:15:22Z"},"expiry":"2019-08-24T14:15:22Z"}
+```
+
+```json
+{
+  "data": {
+    "title": "string",
+    "link": "string",
+    "imageLink": "string",
+    "createdAt": "2019-08-24T14:15:22Z"
+  },
+  "expiry": "2019-08-24T14:15:22Z"
+}
+```
+
+<h3 id="get__api_news_latest-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsApiResponseOfNewsStory](#schemanewsapiresponseofnewsstory)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__api_News_List
+
+> Code samples
+
+`GET /api/News/List`
+
+*Retrieves the top 10 latest news stories*
+
+> Example responses
+
+> 200 Response
+
+```
+{"data":{"title":"string","link":"string","imageLink":"string","createdAt":"2019-08-24T14:15:22Z"},"expiry":"2019-08-24T14:15:22Z"}
+```
+
+```json
+{
+  "data": {
+    "title": "string",
+    "link": "string",
+    "imageLink": "string",
+    "createdAt": "2019-08-24T14:15:22Z"
+  },
+  "expiry": "2019-08-24T14:15:22Z"
+}
+```
+
+<h3 id="get__api_news_list-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsApiResponseOfNewsStory](#schemanewsapiresponseofnewsstory)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="mybca-server-v1-nutrislice">Nutrislice</h1>
+
+## get__api_Lunch_Week
+
+> Code samples
+
+`GET /api/Lunch/Week`
 
 *Retrieves the lunch menu for the week*
 
@@ -109,37 +180,40 @@ This operation does not require authentication
 > 200 Response
 
 ```
-{"startDate":"string","displayName":"string","days":[{"date":"string","menuItems":[{"date":"2019-08-24T14:15:22Z","position":0,"isSectionTitle":true,"text":"string","food":{"id":0,"name":"string","description":"string","subtext":"string","imageUrl":"string"},"stationID":0,"isStationHeader":true,"image":"string","category":"string"}]}]}
+{"data":{"startDate":"string","displayName":"string","days":[{"date":"string","menuItems":[{"date":"2019-08-24T14:15:22Z","position":0,"isSectionTitle":true,"text":"string","food":{"id":0,"name":"string","description":"string","subtext":"string","imageUrl":"string"},"stationID":0,"isStationHeader":true,"image":"string","category":"string"}]}]},"expiry":"2019-08-24T14:15:22Z"}
 ```
 
 ```json
 {
-  "startDate": "string",
-  "displayName": "string",
-  "days": [
-    {
-      "date": "string",
-      "menuItems": [
-        {
-          "date": "2019-08-24T14:15:22Z",
-          "position": 0,
-          "isSectionTitle": true,
-          "text": "string",
-          "food": {
-            "id": 0,
-            "name": "string",
-            "description": "string",
-            "subtext": "string",
-            "imageUrl": "string"
-          },
-          "stationID": 0,
-          "isStationHeader": true,
-          "image": "string",
-          "category": "string"
-        }
-      ]
-    }
-  ]
+  "data": {
+    "startDate": "string",
+    "displayName": "string",
+    "days": [
+      {
+        "date": "string",
+        "menuItems": [
+          {
+            "date": "2019-08-24T14:15:22Z",
+            "position": 0,
+            "isSectionTitle": true,
+            "text": "string",
+            "food": {
+              "id": 0,
+              "name": "string",
+              "description": "string",
+              "subtext": "string",
+              "imageUrl": "string"
+            },
+            "stationID": 0,
+            "isStationHeader": true,
+            "image": "string",
+            "category": "string"
+          }
+        ]
+      }
+    ]
+  },
+  "expiry": "2019-08-24T14:15:22Z"
 }
 ```
 
@@ -147,17 +221,17 @@ This operation does not require authentication
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[MenuWeek](#schemamenuweek)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NutrisliceApiResponseOfMenuWeek](#schemanutrisliceapiresponseofmenuweek)|
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## get__api_lunch_Day
+## get__api_Lunch_Day
 
 > Code samples
 
-`GET /api/lunch/Day`
+`GET /api/Lunch/Day`
 
 *Retrieves the lunch menu for the day*
 
@@ -166,31 +240,34 @@ This operation does not require authentication
 > 200 Response
 
 ```
-{"date":"string","menuItems":[{"date":"2019-08-24T14:15:22Z","position":0,"isSectionTitle":true,"text":"string","food":{"id":0,"name":"string","description":"string","subtext":"string","imageUrl":"string"},"stationID":0,"isStationHeader":true,"image":"string","category":"string"}]}
+{"data":{"date":"string","menuItems":[{"date":"2019-08-24T14:15:22Z","position":0,"isSectionTitle":true,"text":"string","food":{"id":0,"name":"string","description":"string","subtext":"string","imageUrl":"string"},"stationID":0,"isStationHeader":true,"image":"string","category":"string"}]},"expiry":"2019-08-24T14:15:22Z"}
 ```
 
 ```json
 {
-  "date": "string",
-  "menuItems": [
-    {
-      "date": "2019-08-24T14:15:22Z",
-      "position": 0,
-      "isSectionTitle": true,
-      "text": "string",
-      "food": {
-        "id": 0,
-        "name": "string",
-        "description": "string",
-        "subtext": "string",
-        "imageUrl": "string"
-      },
-      "stationID": 0,
-      "isStationHeader": true,
-      "image": "string",
-      "category": "string"
-    }
-  ]
+  "data": {
+    "date": "string",
+    "menuItems": [
+      {
+        "date": "2019-08-24T14:15:22Z",
+        "position": 0,
+        "isSectionTitle": true,
+        "text": "string",
+        "food": {
+          "id": 0,
+          "name": "string",
+          "description": "string",
+          "subtext": "string",
+          "imageUrl": "string"
+        },
+        "stationID": 0,
+        "isStationHeader": true,
+        "image": "string",
+        "category": "string"
+      }
+    ]
+  },
+  "expiry": "2019-08-24T14:15:22Z"
 }
 ```
 
@@ -198,7 +275,7 @@ This operation does not require authentication
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[MenuDay](#schemamenuday)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NutrisliceApiResponseOfMenuDay](#schemanutrisliceapiresponseofmenuday)|
 
 <aside class="success">
 This operation does not require authentication
@@ -284,12 +361,79 @@ This operation does not require authentication
 |name|string|true|none|none|
 |target|string(uri)|true|none|none|
 
+<h2 id="tocS_LinkApiResponse">LinkApiResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemalinkapiresponse"></a>
+<a id="schema_LinkApiResponse"></a>
+<a id="tocSlinkapiresponse"></a>
+<a id="tocslinkapiresponse"></a>
+
+```json
+{
+  "count": 0,
+  "data": [
+    {
+      "name": "string",
+      "target": "http://example.com"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|count|integer(int32)|true|none|none|
+|data|[[Link](#schemalink)]|true|none|none|
+
 <h2 id="tocS_MenuDay">MenuDay</h2>
 <!-- backwards compatibility -->
 <a id="schemamenuday"></a>
 <a id="schema_MenuDay"></a>
 <a id="tocSmenuday"></a>
 <a id="tocsmenuday"></a>
+
+```json
+{
+  "date": "string",
+  "menuItems": [
+    {
+      "date": "2019-08-24T14:15:22Z",
+      "position": 0,
+      "isSectionTitle": true,
+      "text": "string",
+      "food": {
+        "id": 0,
+        "name": "string",
+        "description": "string",
+        "subtext": "string",
+        "imageUrl": "string"
+      },
+      "stationID": 0,
+      "isStationHeader": true,
+      "image": "string",
+      "category": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|date|string¦null|true|none|none|
+|menuItems|[[MenuItem](#schemamenuitem)]|true|none|none|
+
+<h2 id="tocS_MenuDay2">MenuDay2</h2>
+<!-- backwards compatibility -->
+<a id="schemamenuday2"></a>
+<a id="schema_MenuDay2"></a>
+<a id="tocSmenuday2"></a>
+<a id="tocsmenuday2"></a>
 
 ```json
 {
@@ -412,4 +556,149 @@ This operation does not require authentication
 |startDate|string¦null|true|none|none|
 |displayName|string¦null|true|none|none|
 |days|[[MenuDay](#schemamenuday)]|true|none|none|
+
+<h2 id="tocS_NewsApiResponseOfNewsStory">NewsApiResponseOfNewsStory</h2>
+<!-- backwards compatibility -->
+<a id="schemanewsapiresponseofnewsstory"></a>
+<a id="schema_NewsApiResponseOfNewsStory"></a>
+<a id="tocSnewsapiresponseofnewsstory"></a>
+<a id="tocsnewsapiresponseofnewsstory"></a>
+
+```json
+{
+  "data": {
+    "title": "string",
+    "link": "string",
+    "imageLink": "string",
+    "createdAt": "2019-08-24T14:15:22Z"
+  },
+  "expiry": "2019-08-24T14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[NewsStory](#schemanewsstory)|true|none|none|
+|expiry|string(date-time)¦null|true|none|none|
+
+<h2 id="tocS_NewsStory">NewsStory</h2>
+<!-- backwards compatibility -->
+<a id="schemanewsstory"></a>
+<a id="schema_NewsStory"></a>
+<a id="tocSnewsstory"></a>
+<a id="tocsnewsstory"></a>
+
+```json
+{
+  "title": "string",
+  "link": "string",
+  "imageLink": "string",
+  "createdAt": "2019-08-24T14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|title|string|true|none|none|
+|link|string|true|none|none|
+|imageLink|string¦null|true|none|none|
+|createdAt|string(date-time)|true|none|none|
+
+<h2 id="tocS_NutrisliceApiResponseOfMenuDay">NutrisliceApiResponseOfMenuDay</h2>
+<!-- backwards compatibility -->
+<a id="schemanutrisliceapiresponseofmenuday"></a>
+<a id="schema_NutrisliceApiResponseOfMenuDay"></a>
+<a id="tocSnutrisliceapiresponseofmenuday"></a>
+<a id="tocsnutrisliceapiresponseofmenuday"></a>
+
+```json
+{
+  "data": {
+    "date": "string",
+    "menuItems": [
+      {
+        "date": "2019-08-24T14:15:22Z",
+        "position": 0,
+        "isSectionTitle": true,
+        "text": "string",
+        "food": {
+          "id": 0,
+          "name": "string",
+          "description": "string",
+          "subtext": "string",
+          "imageUrl": "string"
+        },
+        "stationID": 0,
+        "isStationHeader": true,
+        "image": "string",
+        "category": "string"
+      }
+    ]
+  },
+  "expiry": "2019-08-24T14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[MenuDay2](#schemamenuday2)|true|none|none|
+|expiry|string(date-time)¦null|true|none|none|
+
+<h2 id="tocS_NutrisliceApiResponseOfMenuWeek">NutrisliceApiResponseOfMenuWeek</h2>
+<!-- backwards compatibility -->
+<a id="schemanutrisliceapiresponseofmenuweek"></a>
+<a id="schema_NutrisliceApiResponseOfMenuWeek"></a>
+<a id="tocSnutrisliceapiresponseofmenuweek"></a>
+<a id="tocsnutrisliceapiresponseofmenuweek"></a>
+
+```json
+{
+  "data": {
+    "startDate": "string",
+    "displayName": "string",
+    "days": [
+      {
+        "date": "string",
+        "menuItems": [
+          {
+            "date": "2019-08-24T14:15:22Z",
+            "position": 0,
+            "isSectionTitle": true,
+            "text": "string",
+            "food": {
+              "id": 0,
+              "name": "string",
+              "description": "string",
+              "subtext": "string",
+              "imageUrl": "string"
+            },
+            "stationID": 0,
+            "isStationHeader": true,
+            "image": "string",
+            "category": "string"
+          }
+        ]
+      }
+    ]
+  },
+  "expiry": "2019-08-24T14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[MenuWeek](#schemamenuweek)|true|none|none|
+|expiry|string(date-time)¦null|true|none|none|
 
