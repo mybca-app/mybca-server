@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using MyBCA.Server.Data;
 using MyBCA.Server.Services.Bus;
 using MyBCA.Server.Services.Links;
+using MyBCA.Server.Services.News;
 using MyBCA.Server.Services.Notifications;
 using MyBCA.Server.Services.Nutrislice;
 using Prometheus;
@@ -55,6 +56,15 @@ builder.Services.Configure<BusOptions>(
 builder.Services.AddHttpClient<IBusService, BusService>((sp, client) =>
 {
     var options = sp.GetRequiredService<IOptions<BusOptions>>().Value;
+    client.BaseAddress = new Uri(options.BaseUrl);
+});
+
+builder.Services.Configure<NewsOptions>(
+    builder.Configuration.GetSection("News")
+);
+builder.Services.AddHttpClient<INewsService, NewsService>((sp, client) =>
+{
+    var options = sp.GetRequiredService<IOptions<NewsOptions>>().Value;
     client.BaseAddress = new Uri(options.BaseUrl);
 });
 

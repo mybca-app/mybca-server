@@ -33,7 +33,7 @@ public class NutrisliceService(ILogger<NutrisliceService> logger, HttpClient htt
 
         try
         {
-            logger.LogInformation("Fetching new Nutrislice data");
+            logger.LogDebug("Fetching new Nutrislice data");
             var now = DateTime.Now;
 
             var jsonOptions = new JsonSerializerOptions
