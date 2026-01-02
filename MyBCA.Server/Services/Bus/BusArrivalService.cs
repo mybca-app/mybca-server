@@ -24,7 +24,7 @@ public class BusArrivalService(AppDbContext db) : IBusArrivalService
     {
         List<BusArrival> arrivals = await db.BusArrivals
             .Where(a => a.BusName == bus)
-            .OrderBy(a => a.ArrivalTime)
+            .OrderByDescending(a => a.ArrivalTime)
             .ToListAsync();
 
         return arrivals;
