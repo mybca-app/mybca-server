@@ -1,0 +1,11 @@
+using MyBCA.Shared.Models.News;
+using MyBCA.Shared.Models.News.Responses;
+
+namespace MyBCA.Server.Services.News;
+
+public interface INewsService
+{
+    Task<IEnumerable<NewsStory>> GetLatestStoriesAsync();
+    Task<NewsStory> GetLatestStoryAsync();
+    DateTime? Expiry { get; }
+}

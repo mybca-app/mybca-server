@@ -43,13 +43,13 @@ public class BusService(ILogger<BusService> logger, HttpClient httpClient, IOpti
     {
         if (cache.TryGetValue<CacheItem<Dictionary<string, string>>>(CacheKey, out var cachedPositions))
         {
-            logger.LogDebug("Using cached bus position data");
+            logger.LogDebug("Using cached bus position data.");
             return cachedPositions!.Value;
         }
 
         try
         {
-            logger.LogInformation("Fetching new bus position data");
+            logger.LogDebug("Fetching new bus position data.");
             var html = await httpClient.GetStringAsync("");
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
@@ -58,7 +58,7 @@ public class BusService(ILogger<BusService> logger, HttpClient httpClient, IOpti
 
             var now = DateTime.Now;
             var ttl = GetCacheTtl(now);
-            logger.LogInformation("Cache TTL for newly fetched bus position data is {Ttl}", ttl);
+            logger.LogDebug("Cache TTL for newly fetched bus position data is {Ttl}.", ttl);
 
             if (positionMap.Count < 20)
             {

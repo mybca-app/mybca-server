@@ -1,0 +1,495 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MyBCA.Server | v1",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://mybca.link"
+    }
+  ],
+  "paths": {
+    "/api/Bus/List": {
+      "get": {
+        "tags": [
+          "Bus"
+        ],
+        "summary": "Retrieves a map of each bus to its position",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Links": {
+      "get": {
+        "tags": [
+          "Link"
+        ],
+        "summary": "Retrieves a list of quick links to key BCA services",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/News/Latest": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Retrieves the latest news story",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/News/List": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Retrieves the top 10 latest news stories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Lunch/Week": {
+      "get": {
+        "tags": [
+          "Nutrislice"
+        ],
+        "summary": "Retrieves the lunch menu for the week",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeek"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeek"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeek"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Lunch/Day": {
+      "get": {
+        "tags": [
+          "Nutrislice"
+        ],
+        "summary": "Retrieves the lunch menu for the day",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDay"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDay"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDay"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BusApiResponse": {
+        "required": [
+          "count",
+          "data",
+          "expiry"
+        ],
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "FoodItem": {
+        "required": [
+          "id",
+          "name",
+          "description",
+          "subtext",
+          "imageUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtext": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Link": {
+        "required": [
+          "name",
+          "target"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "LinkApiResponse": {
+        "required": [
+          "count",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            }
+          }
+        }
+      },
+      "MenuDay": {
+        "required": [
+          "date",
+          "menuItems"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "menuItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MenuItem"
+            }
+          }
+        }
+      },
+      "MenuDay2": {
+        "required": [
+          "date",
+          "menuItems"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "menuItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MenuItem"
+            }
+          }
+        },
+        "nullable": true
+      },
+      "MenuItem": {
+        "required": [
+          "date",
+          "position",
+          "isSectionTitle",
+          "text",
+          "food",
+          "stationID",
+          "isStationHeader",
+          "image",
+          "category"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isSectionTitle": {
+            "type": "boolean"
+          },
+          "text": {
+            "type": "string",
+            "nullable": true
+          },
+          "food": {
+            "$ref": "#/components/schemas/FoodItem"
+          },
+          "stationID": {
+            "type": "integer",
+            "format": "uint32"
+          },
+          "isStationHeader": {
+            "type": "boolean"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "MenuWeek": {
+        "required": [
+          "startDate",
+          "displayName",
+          "days"
+        ],
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "days": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MenuDay"
+            }
+          }
+        },
+        "nullable": true
+      },
+      "NewsApiResponseOfNewsStory": {
+        "required": [
+          "data",
+          "expiry"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/NewsStory"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "NewsStory": {
+        "required": [
+          "title",
+          "link",
+          "imageLink",
+          "createdAt"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "imageLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "nullable": true
+      },
+      "NutrisliceApiResponseOfMenuDay": {
+        "required": [
+          "data",
+          "expiry"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MenuDay2"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "NutrisliceApiResponseOfMenuWeek": {
+        "required": [
+          "data",
+          "expiry"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MenuWeek"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Bus"
+    },
+    {
+      "name": "Link"
+    },
+    {
+      "name": "News"
+    },
+    {
+      "name": "Nutrislice"
+    }
+  ]
+}

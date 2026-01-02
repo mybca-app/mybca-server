@@ -50,7 +50,7 @@ public class FcmService
         try
         {
             var response = await _messaging!.SendAsync(message);
-            _logger.LogInformation("FCM sent: {Response}", response);
+            _logger.LogDebug("FCM sent: {Response}", response);
         }
         catch (Exception ex)
         {

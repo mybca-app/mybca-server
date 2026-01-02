@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Cors;
 namespace MyBCA.Server.Controllers;
 
 [ApiController]
-[Route("api/lunch/[action]")]
+[Route("api/Lunch/[action]")]
 [EnableCors("AllowAll")]
 public class NutrisliceController(INutrisliceService menuService) : ControllerBase
 {
