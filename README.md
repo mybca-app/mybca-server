@@ -37,6 +37,14 @@ This project does not handle the event system of the app.
 - Quick links to BCA-related services (PowerSchool, Schoology, etc.) are served
   in a REST API endpoint.
 
+### Alternate Schedules
+
+- When BCA is running with an alternate schedule for a specific day, the
+  schedule for the day is accessible via an API endpoint.
+- Schedule data is sourced from the MySQL database. Starting data can be found
+  in the repository <https://github.com/mybca-app/schedules-common>, which can
+  be imported into the MySQL database.
+
 ## Replication
 
 This aims to be a sufficient guide for you to get myBCA's server up and running

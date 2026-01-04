@@ -6,7 +6,7 @@
 
 Base URLs:
 
-* <a href="https://mybca.link/">https://mybca.link/</a>
+* <a href="https://main-service-prod-oc1.mybca.link/">https://main-service-prod-oc1.mybca.link/</a>
 
 <h1 id="mybca-server-v1-bus">Bus</h1>
 
@@ -331,6 +331,59 @@ This operation does not require authentication
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NutrisliceApiResponseOfMenuDay](#schemanutrisliceapiresponseofmenuday)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+<h1 id="mybca-server-v1-schedule">Schedule</h1>
+
+## get__api_Schedule_Day_{date}
+
+> Code samples
+
+`GET /api/Schedule/Day/{date}`
+
+*Retrieves details of the schedule for a day*
+
+<h3 id="get__api_schedule_day_{date}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|date|path|string(date)|true|none|
+
+> Example responses
+
+> 200 Response
+
+```
+{"id":0,"day":"2019-08-24","scheduleId":0,"schedule":{"id":0,"name":"string","items":[{"periodName":"string","startTime":"14:15:22Z","endTime":"14:15:22Z"}]}}
+```
+
+```json
+{
+  "id": 0,
+  "day": "2019-08-24",
+  "scheduleId": 0,
+  "schedule": {
+    "id": 0,
+    "name": "string",
+    "items": [
+      {
+        "periodName": "string",
+        "startTime": "14:15:22Z",
+        "endTime": "14:15:22Z"
+      }
+    ]
+  }
+}
+```
+
+<h3 id="get__api_schedule_day_{date}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[ScheduleDay](#schemascheduleday)|
 
 <aside class="success">
 This operation does not require authentication
@@ -782,4 +835,94 @@ This operation does not require authentication
 |---|---|---|---|---|
 |data|[MenuWeek](#schemamenuweek)|true|none|none|
 |expiry|string(date-time)¦null|true|none|none|
+
+<h2 id="tocS_Schedule">Schedule</h2>
+<!-- backwards compatibility -->
+<a id="schemaschedule"></a>
+<a id="schema_Schedule"></a>
+<a id="tocSschedule"></a>
+<a id="tocsschedule"></a>
+
+```json
+{
+  "id": 0,
+  "name": "string",
+  "items": [
+    {
+      "periodName": "string",
+      "startTime": "14:15:22Z",
+      "endTime": "14:15:22Z"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|integer(int32)|false|none|none|
+|name|string|true|none|none|
+|items|[[ScheduleItem](#schemascheduleitem)]|true|none|none|
+
+<h2 id="tocS_ScheduleDay">ScheduleDay</h2>
+<!-- backwards compatibility -->
+<a id="schemascheduleday"></a>
+<a id="schema_ScheduleDay"></a>
+<a id="tocSscheduleday"></a>
+<a id="tocsscheduleday"></a>
+
+```json
+{
+  "id": 0,
+  "day": "2019-08-24",
+  "scheduleId": 0,
+  "schedule": {
+    "id": 0,
+    "name": "string",
+    "items": [
+      {
+        "periodName": "string",
+        "startTime": "14:15:22Z",
+        "endTime": "14:15:22Z"
+      }
+    ]
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|integer(int32)|false|none|none|
+|day|string(date)|false|none|none|
+|scheduleId|integer(int32)|false|none|none|
+|schedule|[Schedule](#schemaschedule)|false|none|none|
+
+<h2 id="tocS_ScheduleItem">ScheduleItem</h2>
+<!-- backwards compatibility -->
+<a id="schemascheduleitem"></a>
+<a id="schema_ScheduleItem"></a>
+<a id="tocSscheduleitem"></a>
+<a id="tocsscheduleitem"></a>
+
+```json
+{
+  "periodName": "string",
+  "startTime": "14:15:22Z",
+  "endTime": "14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|periodName|string|true|none|none|
+|startTime|string(time)|false|none|none|
+|endTime|string(time)|false|none|none|
 

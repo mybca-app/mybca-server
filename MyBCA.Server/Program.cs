@@ -8,6 +8,7 @@ using MyBCA.Server.Services.Links;
 using MyBCA.Server.Services.News;
 using MyBCA.Server.Services.Notifications;
 using MyBCA.Server.Services.Nutrislice;
+using MyBCA.Server.Services.Schedule;
 using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +68,8 @@ builder.Services.AddHttpClient<INewsService, NewsService>((sp, client) =>
     var options = sp.GetRequiredService<IOptions<NewsOptions>>().Value;
     client.BaseAddress = new Uri(options.BaseUrl);
 });
+
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 
 builder.Services.Configure<MyBCA.Server.Services.Links.LinkOptions>(
     builder.Configuration.GetSection("QuickLinks")
