@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://mybca.link/"
+      "url": "https://main-service-prod-oc1.mybca.link/"
     }
   ],
   "paths": {
@@ -232,6 +232,47 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDay"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Schedule/Day/{date}": {
+      "get": {
+        "tags": [
+          "Schedule"
+        ],
+        "summary": "Retrieves details of the schedule for a day",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleDay"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleDay"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduleDay"
                 }
               }
             }
@@ -551,6 +592,68 @@
             "nullable": true
           }
         }
+      },
+      "Schedule": {
+        "required": [
+          "name",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleItem"
+            }
+          }
+        },
+        "nullable": true
+      },
+      "ScheduleDay": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "day": {
+            "type": "string",
+            "format": "date"
+          },
+          "scheduleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/Schedule"
+          }
+        }
+      },
+      "ScheduleItem": {
+        "required": [
+          "periodName"
+        ],
+        "type": "object",
+        "properties": {
+          "periodName": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "time"
+          }
+        }
       }
     }
   },
@@ -566,6 +669,9 @@
     },
     {
       "name": "Nutrislice"
+    },
+    {
+      "name": "Schedule"
     }
   ]
 }
