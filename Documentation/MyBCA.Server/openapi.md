@@ -47,19 +47,19 @@ Base URLs:
 This operation does not require authentication
 </aside>
 
-## get__api_Bus_{bus}_History
+## get__api_Bus_History
 
 > Code samples
 
-`GET /api/Bus/{bus}/History`
+`GET /api/Bus/History`
 
 *Retrieves a history of a bus's arrivals*
 
-<h3 id="get__api_bus_{bus}_history-parameters">Parameters</h3>
+<h3 id="get__api_bus_history-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|bus|path|string|true|none|
+|bus|query|string|false|none|
 
 > Example responses
 
@@ -80,13 +80,13 @@ This operation does not require authentication
 ]
 ```
 
-<h3 id="get__api_bus_{bus}_history-responses">Responses</h3>
+<h3 id="get__api_bus_history-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|Inline|
 
-<h3 id="get__api_bus_{bus}_history-responseschema">Response Schema</h3>
+<h3 id="get__api_bus_history-responseschema">Response Schema</h3>
 
 Status Code **200**
 

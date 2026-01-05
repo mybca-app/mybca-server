@@ -19,9 +19,9 @@ public class BusController(IBusService busService, IBusArrivalService arrivalSer
 
         return Ok(new BusApiResponse(locations.Count, locations, busService.Expiry));
     }
-
+    
     [EndpointSummary("Retrieves a history of a bus's arrivals")]
-    [HttpGet("{bus}/History")]
+    [HttpGet("History")]
     public async Task<ActionResult<IEnumerable<BusArrival>>> History(string bus)
     {
         var arrivals = await arrivalService.GetArrivalsByBusAsync(bus);

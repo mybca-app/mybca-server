@@ -40,7 +40,7 @@
         }
       }
     },
-    "/api/Bus/{bus}/History": {
+    "/api/Bus/History": {
       "get": {
         "tags": [
           "Bus"
@@ -49,8 +49,7 @@
         "parameters": [
           {
             "name": "bus",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "string"
             }
