@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Shared.Models.Nutrislice;
-using MyBCA.Shared.Models.Nutrislice.Responses;
+using MyBCA.Server.Models.Nutrislice;
+using MyBCA.Server.Models.Nutrislice.Responses;
 using MyBCA.Server.Services.Nutrislice;
 using Microsoft.AspNetCore.Cors;
 

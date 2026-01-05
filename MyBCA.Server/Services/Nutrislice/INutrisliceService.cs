@@ -1,4 +1,4 @@
-using MyBCA.Shared.Models.Nutrislice;
+using MyBCA.Server.Models.Nutrislice;
 
 namespace MyBCA.Server.Services.Nutrislice;
 

@@ -4,7 +4,6 @@ WORKDIR /src
 
 # Copy csproj and restore dependencies
 COPY ./MyBCA.Server/MyBCA.Server.csproj ./ 
-COPY ./MyBCA.Shared/MyBCA.Shared.csproj ./
 
 # Copy the rest of the project
 COPY . .

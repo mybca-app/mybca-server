@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using MyBCA.Server.Models;
-using MyBCA.Shared.Models.News;
+using MyBCA.Server.Models.News;
 using WordPressPCL;
 
 namespace MyBCA.Server.Services.News;

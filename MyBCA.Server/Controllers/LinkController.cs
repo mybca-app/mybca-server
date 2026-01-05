@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Shared.Models.Links.Responses;
+using MyBCA.Server.Models.Links.Responses;
 using MyBCA.Server.Services.Links;
 using Microsoft.AspNetCore.Cors;
 

@@ -1,4 +1,4 @@
-namespace MyBCA.Shared.Models.Nutrislice;
+namespace MyBCA.Server.Models.Nutrislice;
 
 public record MenuDay(
     string? Date,

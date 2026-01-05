@@ -1,5 +1,5 @@
-using MyBCA.Shared.Models.News;
-using MyBCA.Shared.Models.News.Responses;
+using MyBCA.Server.Models.News;
+using MyBCA.Server.Models.News.Responses;
 
 namespace MyBCA.Server.Services.News;
 

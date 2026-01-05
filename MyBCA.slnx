@@ -1,4 +1,3 @@
 <Solution>
-  <Project Path="MyBCA.Shared/MyBCA.Shared.csproj" />
   <Project Path="MyBCA.Server/MyBCA.Server.csproj" />
 </Solution>

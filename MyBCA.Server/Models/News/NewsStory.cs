@@ -1,4 +1,4 @@
-namespace MyBCA.Shared.Models.News;
+namespace MyBCA.Server.Models.News;
 
 public record NewsStory(
     string Title,

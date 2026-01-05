@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using MyBCA.Server.Services.News;
-using MyBCA.Shared.Models.News.Responses;
-using MyBCA.Shared.Models.News;
+using MyBCA.Server.Models.News.Responses;
+using MyBCA.Server.Models.News;
 
 namespace MyBCA.Server.Controllers;
 

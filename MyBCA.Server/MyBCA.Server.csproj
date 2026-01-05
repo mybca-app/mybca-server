@@ -21,8 +21,4 @@
     <PackageReference Include="WordPressPCL" Version="2.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MyBCA.Shared\MyBCA.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,3 +1,3 @@
-namespace MyBCA.Shared.Models.Bus.Responses;
+namespace MyBCA.Server.Models.Bus.Responses;
 
 public record BusApiResponse(int Count, Dictionary<string, string> Data, DateTime? Expiry);

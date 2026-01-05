@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Options;
-using MyBCA.Shared.Models.Links;
+using MyBCA.Server.Models.Links;
 
 namespace MyBCA.Server.Services.Links;
 

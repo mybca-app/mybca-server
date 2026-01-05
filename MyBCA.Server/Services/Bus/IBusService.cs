@@ -1,4 +1,4 @@
-using MyBCA.Shared.Models.Bus;
+using MyBCA.Server.Models.Bus;
 
 namespace MyBCA.Server.Services.Bus;
 
