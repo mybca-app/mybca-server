@@ -42,12 +42,14 @@ services:
       - MYSQL_USER=${MYSQL_USER:-mybca}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-password}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpassword}
+      - GRAFANA_DB_PASSWORD=${GRAFANA_DB_PASSWORD:-grafanapassword}
     expose:
       - "3306"
     networks:
       - monitoring
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./db_scripts:/docker-entrypoint-initdb.d
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -57,6 +59,7 @@ services:
       - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD:-admin}
       - TZ=${TZ:-}
+      - GRAFANA_DB_PASSWORD=${GRAFANA_DB_PASSWORD:-grafanapassword}
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
@@ -64,6 +67,7 @@ services:
       - monitoring
     depends_on:
       - prometheus
+      - mysql
 
 networks:
   monitoring:

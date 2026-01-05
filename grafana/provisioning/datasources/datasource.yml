@@ -6,3 +6,22 @@ datasources:
     access: proxy
     url: http://prometheus:9090
     isDefault: true
+  - name: MySQL
+    type: mysql
+    uid: mysql
+    access: proxy
+    orgId: 1
+    isDefault: false
+
+    url: mysql:3306
+    database: ${MYSQL_DATABASE}
+    user: grafana
+
+    secureJsonData:
+      password: ${GRAFANA_DB_PASSWORD}
+
+    jsonData:
+      maxOpenConns: 10
+      maxIdleConns: 5
+      connMaxLifetime: 14400
+      tlsSkipVerify: true

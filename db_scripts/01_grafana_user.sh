@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" <<EOF
+CREATE USER IF NOT EXISTS 'grafana'@'%' IDENTIFIED BY '${GRAFANA_DB_PASSWORD}';
+
+GRANT
+  SELECT,
+  SHOW VIEW
+ON \`${MYSQL_DATABASE}\`.*
+TO 'grafana'@'%';
+
+FLUSH PRIVILEGES;
+EOF
