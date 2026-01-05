@@ -16,6 +16,6 @@ public class ScheduleController(IScheduleService scheduleService) : ControllerBa
     {
         var schedule = await scheduleService.GetScheduleDayAsync(date);
 
-        return schedule is null ? NotFound() : Ok(schedule);
+        return schedule is null ? Ok(new { }) : Ok(schedule);
     }
 }
