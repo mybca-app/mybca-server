@@ -42,7 +42,7 @@ public class BusController(IBusService busService, IBusArrivalService arrivalSer
 
         foreach (var arrival in dtos)
         {
-            var date = arrival.ArrivalTime.ToString("yyyy-MM-dd'T'HH:mm:sszzz", CultureInfo.InvariantCulture);
+            var date = arrival.ArrivalTime.ToLocalTime().ToString("MM/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
             sb.AppendLine($"{Escape(arrival.BusName ?? "")},{Escape(arrival.BusPosition ?? "")},{Escape(date)}");
         }
 
