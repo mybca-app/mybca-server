@@ -29,4 +29,13 @@ public class BusArrivalService(AppDbContext db) : IBusArrivalService
 
         return arrivals;
     }
+
+    public async Task<IEnumerable<BusArrival>> GetAllArrivalsAsync()
+    {
+        List<BusArrival> arrivals = await db.BusArrivals
+            .OrderByDescending(a => a.ArrivalTime)
+            .ToListAsync();
+
+        return arrivals;
+    }
 }
