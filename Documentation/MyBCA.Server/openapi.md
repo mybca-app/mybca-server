@@ -66,13 +66,12 @@ This operation does not require authentication
 > 200 Response
 
 ```
-[{"id":0,"busName":"string","busPosition":"string","arrivalTime":"2019-08-24T14:15:22Z"}]
+[{"busName":"string","busPosition":"string","arrivalTime":"2019-08-24T14:15:22Z"}]
 ```
 
 ```json
 [
   {
-    "id": 0,
     "busName": "string",
     "busPosition": "string",
     "arrivalTime": "2019-08-24T14:15:22Z"
@@ -92,11 +91,35 @@ Status Code **200**
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|[[BusArrival](#schemabusarrival)]|false|none|none|
-|» id|integer(int32)|false|none|none|
+|*anonymous*|[[BusArrivalDto](#schemabusarrivaldto)]|false|none|none|
 |» busName|string¦null|true|none|none|
 |» busPosition|string¦null|true|none|none|
-|» arrivalTime|string(date-time)|false|none|none|
+|» arrivalTime|string(date-time)|true|none|none|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__api_Bus_Reports_Generate
+
+> Code samples
+
+`GET /api/Bus/Reports/Generate`
+
+*Generates a CSV report of all bus arrival data*
+
+<h3 id="get__api_bus_reports_generate-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|start|query|string(date)|false|none|
+|end|query|string(date)|false|none|
+
+<h3 id="get__api_bus_reports_generate-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -176,7 +199,7 @@ This operation does not require authentication
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsApiResponseOfNewsStory](#schemanewsapiresponseofnewsstory)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsApiResponseOfNewsStoryDto](#schemanewsapiresponseofnewsstorydto)|
 
 <aside class="success">
 This operation does not require authentication
@@ -195,17 +218,19 @@ This operation does not require authentication
 > 200 Response
 
 ```
-{"data":{"title":"string","link":"string","imageLink":"string","createdAt":"2019-08-24T14:15:22Z"},"expiry":"2019-08-24T14:15:22Z"}
+{"data":[{"title":"string","link":"string","imageLink":"string","createdAt":"2019-08-24T14:15:22Z"}],"expiry":"2019-08-24T14:15:22Z"}
 ```
 
 ```json
 {
-  "data": {
-    "title": "string",
-    "link": "string",
-    "imageLink": "string",
-    "createdAt": "2019-08-24T14:15:22Z"
-  },
+  "data": [
+    {
+      "title": "string",
+      "link": "string",
+      "imageLink": "string",
+      "createdAt": "2019-08-24T14:15:22Z"
+    }
+  ],
   "expiry": "2019-08-24T14:15:22Z"
 }
 ```
@@ -214,7 +239,7 @@ This operation does not require authentication
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsApiResponseOfNewsStory](#schemanewsapiresponseofnewsstory)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsApiResponseOfIEnumerableOfNewsStoryDto](#schemanewsapiresponseofienumerableofnewsstorydto)|
 
 <aside class="success">
 This operation does not require authentication
@@ -276,7 +301,7 @@ This operation does not require authentication
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NutrisliceApiResponseOfMenuWeek](#schemanutrisliceapiresponseofmenuweek)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NutrisliceApiResponseOfMenuWeekDto](#schemanutrisliceapiresponseofmenuweekdto)|
 
 <aside class="success">
 This operation does not require authentication
@@ -330,7 +355,7 @@ This operation does not require authentication
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NutrisliceApiResponseOfMenuDay](#schemanutrisliceapiresponseofmenuday)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NutrisliceApiResponseOfMenuDayDto](#schemanutrisliceapiresponseofmenudaydto)|
 
 <aside class="success">
 This operation does not require authentication
@@ -383,7 +408,7 @@ This operation does not require authentication
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[ScheduleDay](#schemascheduleday)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[ScheduleDayDto](#schemascheduledaydto)|
 
 <aside class="success">
 This operation does not require authentication
@@ -419,16 +444,15 @@ This operation does not require authentication
 |» **additionalProperties**|string|false|none|none|
 |expiry|string(date-time)¦null|true|none|none|
 
-<h2 id="tocS_BusArrival">BusArrival</h2>
+<h2 id="tocS_BusArrivalDto">BusArrivalDto</h2>
 <!-- backwards compatibility -->
-<a id="schemabusarrival"></a>
-<a id="schema_BusArrival"></a>
-<a id="tocSbusarrival"></a>
-<a id="tocsbusarrival"></a>
+<a id="schemabusarrivaldto"></a>
+<a id="schema_BusArrivalDto"></a>
+<a id="tocSbusarrivaldto"></a>
+<a id="tocsbusarrivaldto"></a>
 
 ```json
 {
-  "id": 0,
   "busName": "string",
   "busPosition": "string",
   "arrivalTime": "2019-08-24T14:15:22Z"
@@ -440,17 +464,16 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|integer(int32)|false|none|none|
 |busName|string¦null|true|none|none|
 |busPosition|string¦null|true|none|none|
-|arrivalTime|string(date-time)|false|none|none|
+|arrivalTime|string(date-time)|true|none|none|
 
-<h2 id="tocS_FoodItem">FoodItem</h2>
+<h2 id="tocS_FoodItemDto">FoodItemDto</h2>
 <!-- backwards compatibility -->
-<a id="schemafooditem"></a>
-<a id="schema_FoodItem"></a>
-<a id="tocSfooditem"></a>
-<a id="tocsfooditem"></a>
+<a id="schemafooditemdto"></a>
+<a id="schema_FoodItemDto"></a>
+<a id="tocSfooditemdto"></a>
+<a id="tocsfooditemdto"></a>
 
 ```json
 {
@@ -472,28 +495,6 @@ This operation does not require authentication
 |description|string¦null|true|none|none|
 |subtext|string¦null|true|none|none|
 |imageUrl|string¦null|true|none|none|
-
-<h2 id="tocS_Link">Link</h2>
-<!-- backwards compatibility -->
-<a id="schemalink"></a>
-<a id="schema_Link"></a>
-<a id="tocSlink"></a>
-<a id="tocslink"></a>
-
-```json
-{
-  "name": "string",
-  "target": "http://example.com"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|name|string|true|none|none|
-|target|string(uri)|true|none|none|
 
 <h2 id="tocS_LinkApiResponse">LinkApiResponse</h2>
 <!-- backwards compatibility -->
@@ -520,14 +521,36 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |count|integer(int32)|true|none|none|
-|data|[[Link](#schemalink)]|true|none|none|
+|data|[[LinkDto](#schemalinkdto)]|true|none|none|
 
-<h2 id="tocS_MenuDay">MenuDay</h2>
+<h2 id="tocS_LinkDto">LinkDto</h2>
 <!-- backwards compatibility -->
-<a id="schemamenuday"></a>
-<a id="schema_MenuDay"></a>
-<a id="tocSmenuday"></a>
-<a id="tocsmenuday"></a>
+<a id="schemalinkdto"></a>
+<a id="schema_LinkDto"></a>
+<a id="tocSlinkdto"></a>
+<a id="tocslinkdto"></a>
+
+```json
+{
+  "name": "string",
+  "target": "http://example.com"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|name|string|true|none|none|
+|target|string(uri)|true|none|none|
+
+<h2 id="tocS_MenuDayDto">MenuDayDto</h2>
+<!-- backwards compatibility -->
+<a id="schemamenudaydto"></a>
+<a id="schema_MenuDayDto"></a>
+<a id="tocSmenudaydto"></a>
+<a id="tocsmenudaydto"></a>
 
 ```json
 {
@@ -560,14 +583,14 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |date|string¦null|true|none|none|
-|menuItems|[[MenuItem](#schemamenuitem)]|true|none|none|
+|menuItems|[[MenuItemDto](#schemamenuitemdto)]|true|none|none|
 
-<h2 id="tocS_MenuDay2">MenuDay2</h2>
+<h2 id="tocS_MenuDayDto2">MenuDayDto2</h2>
 <!-- backwards compatibility -->
-<a id="schemamenuday2"></a>
-<a id="schema_MenuDay2"></a>
-<a id="tocSmenuday2"></a>
-<a id="tocsmenuday2"></a>
+<a id="schemamenudaydto2"></a>
+<a id="schema_MenuDayDto2"></a>
+<a id="tocSmenudaydto2"></a>
+<a id="tocsmenudaydto2"></a>
 
 ```json
 {
@@ -600,14 +623,14 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |date|string¦null|true|none|none|
-|menuItems|[[MenuItem](#schemamenuitem)]|true|none|none|
+|menuItems|[[MenuItemDto](#schemamenuitemdto)]|true|none|none|
 
-<h2 id="tocS_MenuItem">MenuItem</h2>
+<h2 id="tocS_MenuItemDto">MenuItemDto</h2>
 <!-- backwards compatibility -->
-<a id="schemamenuitem"></a>
-<a id="schema_MenuItem"></a>
-<a id="tocSmenuitem"></a>
-<a id="tocsmenuitem"></a>
+<a id="schemamenuitemdto"></a>
+<a id="schema_MenuItemDto"></a>
+<a id="tocSmenuitemdto"></a>
+<a id="tocsmenuitemdto"></a>
 
 ```json
 {
@@ -638,18 +661,18 @@ This operation does not require authentication
 |position|integer(int32)|true|none|none|
 |isSectionTitle|boolean|true|none|none|
 |text|string¦null|true|none|none|
-|food|[FoodItem](#schemafooditem)|true|none|none|
+|food|[FoodItemDto](#schemafooditemdto)|true|none|none|
 |stationID|integer(uint32)|true|none|none|
 |isStationHeader|boolean|true|none|none|
 |image|string¦null|true|none|none|
 |category|string¦null|true|none|none|
 
-<h2 id="tocS_MenuWeek">MenuWeek</h2>
+<h2 id="tocS_MenuWeekDto">MenuWeekDto</h2>
 <!-- backwards compatibility -->
-<a id="schemamenuweek"></a>
-<a id="schema_MenuWeek"></a>
-<a id="tocSmenuweek"></a>
-<a id="tocsmenuweek"></a>
+<a id="schemamenuweekdto"></a>
+<a id="schema_MenuWeekDto"></a>
+<a id="tocSmenuweekdto"></a>
+<a id="tocsmenuweekdto"></a>
 
 ```json
 {
@@ -689,14 +712,43 @@ This operation does not require authentication
 |---|---|---|---|---|
 |startDate|string¦null|true|none|none|
 |displayName|string¦null|true|none|none|
-|days|[[MenuDay](#schemamenuday)]|true|none|none|
+|days|[[MenuDayDto](#schemamenudaydto)]|true|none|none|
 
-<h2 id="tocS_NewsApiResponseOfNewsStory">NewsApiResponseOfNewsStory</h2>
+<h2 id="tocS_NewsApiResponseOfIEnumerableOfNewsStoryDto">NewsApiResponseOfIEnumerableOfNewsStoryDto</h2>
 <!-- backwards compatibility -->
-<a id="schemanewsapiresponseofnewsstory"></a>
-<a id="schema_NewsApiResponseOfNewsStory"></a>
-<a id="tocSnewsapiresponseofnewsstory"></a>
-<a id="tocsnewsapiresponseofnewsstory"></a>
+<a id="schemanewsapiresponseofienumerableofnewsstorydto"></a>
+<a id="schema_NewsApiResponseOfIEnumerableOfNewsStoryDto"></a>
+<a id="tocSnewsapiresponseofienumerableofnewsstorydto"></a>
+<a id="tocsnewsapiresponseofienumerableofnewsstorydto"></a>
+
+```json
+{
+  "data": [
+    {
+      "title": "string",
+      "link": "string",
+      "imageLink": "string",
+      "createdAt": "2019-08-24T14:15:22Z"
+    }
+  ],
+  "expiry": "2019-08-24T14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|data|[[NewsStoryDto2](#schemanewsstorydto2)]¦null|true|none|none|
+|expiry|string(date-time)¦null|true|none|none|
+
+<h2 id="tocS_NewsApiResponseOfNewsStoryDto">NewsApiResponseOfNewsStoryDto</h2>
+<!-- backwards compatibility -->
+<a id="schemanewsapiresponseofnewsstorydto"></a>
+<a id="schema_NewsApiResponseOfNewsStoryDto"></a>
+<a id="tocSnewsapiresponseofnewsstorydto"></a>
+<a id="tocsnewsapiresponseofnewsstorydto"></a>
 
 ```json
 {
@@ -715,15 +767,15 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|data|[NewsStory](#schemanewsstory)|true|none|none|
+|data|[NewsStoryDto](#schemanewsstorydto)|true|none|none|
 |expiry|string(date-time)¦null|true|none|none|
 
-<h2 id="tocS_NewsStory">NewsStory</h2>
+<h2 id="tocS_NewsStoryDto">NewsStoryDto</h2>
 <!-- backwards compatibility -->
-<a id="schemanewsstory"></a>
-<a id="schema_NewsStory"></a>
-<a id="tocSnewsstory"></a>
-<a id="tocsnewsstory"></a>
+<a id="schemanewsstorydto"></a>
+<a id="schema_NewsStoryDto"></a>
+<a id="tocSnewsstorydto"></a>
+<a id="tocsnewsstorydto"></a>
 
 ```json
 {
@@ -744,12 +796,38 @@ This operation does not require authentication
 |imageLink|string¦null|true|none|none|
 |createdAt|string(date-time)|true|none|none|
 
-<h2 id="tocS_NutrisliceApiResponseOfMenuDay">NutrisliceApiResponseOfMenuDay</h2>
+<h2 id="tocS_NewsStoryDto2">NewsStoryDto2</h2>
 <!-- backwards compatibility -->
-<a id="schemanutrisliceapiresponseofmenuday"></a>
-<a id="schema_NutrisliceApiResponseOfMenuDay"></a>
-<a id="tocSnutrisliceapiresponseofmenuday"></a>
-<a id="tocsnutrisliceapiresponseofmenuday"></a>
+<a id="schemanewsstorydto2"></a>
+<a id="schema_NewsStoryDto2"></a>
+<a id="tocSnewsstorydto2"></a>
+<a id="tocsnewsstorydto2"></a>
+
+```json
+{
+  "title": "string",
+  "link": "string",
+  "imageLink": "string",
+  "createdAt": "2019-08-24T14:15:22Z"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|title|string|true|none|none|
+|link|string|true|none|none|
+|imageLink|string¦null|true|none|none|
+|createdAt|string(date-time)|true|none|none|
+
+<h2 id="tocS_NutrisliceApiResponseOfMenuDayDto">NutrisliceApiResponseOfMenuDayDto</h2>
+<!-- backwards compatibility -->
+<a id="schemanutrisliceapiresponseofmenudaydto"></a>
+<a id="schema_NutrisliceApiResponseOfMenuDayDto"></a>
+<a id="tocSnutrisliceapiresponseofmenudaydto"></a>
+<a id="tocsnutrisliceapiresponseofmenudaydto"></a>
 
 ```json
 {
@@ -784,15 +862,15 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|data|[MenuDay2](#schemamenuday2)|true|none|none|
+|data|[MenuDayDto2](#schemamenudaydto2)|true|none|none|
 |expiry|string(date-time)¦null|true|none|none|
 
-<h2 id="tocS_NutrisliceApiResponseOfMenuWeek">NutrisliceApiResponseOfMenuWeek</h2>
+<h2 id="tocS_NutrisliceApiResponseOfMenuWeekDto">NutrisliceApiResponseOfMenuWeekDto</h2>
 <!-- backwards compatibility -->
-<a id="schemanutrisliceapiresponseofmenuweek"></a>
-<a id="schema_NutrisliceApiResponseOfMenuWeek"></a>
-<a id="tocSnutrisliceapiresponseofmenuweek"></a>
-<a id="tocsnutrisliceapiresponseofmenuweek"></a>
+<a id="schemanutrisliceapiresponseofmenuweekdto"></a>
+<a id="schema_NutrisliceApiResponseOfMenuWeekDto"></a>
+<a id="tocSnutrisliceapiresponseofmenuweekdto"></a>
+<a id="tocsnutrisliceapiresponseofmenuweekdto"></a>
 
 ```json
 {
@@ -833,45 +911,15 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|data|[MenuWeek](#schemamenuweek)|true|none|none|
+|data|[MenuWeekDto](#schemamenuweekdto)|true|none|none|
 |expiry|string(date-time)¦null|true|none|none|
 
-<h2 id="tocS_Schedule">Schedule</h2>
+<h2 id="tocS_ScheduleDayDto">ScheduleDayDto</h2>
 <!-- backwards compatibility -->
-<a id="schemaschedule"></a>
-<a id="schema_Schedule"></a>
-<a id="tocSschedule"></a>
-<a id="tocsschedule"></a>
-
-```json
-{
-  "id": 0,
-  "name": "string",
-  "items": [
-    {
-      "periodName": "string",
-      "startTime": "14:15:22Z",
-      "endTime": "14:15:22Z"
-    }
-  ]
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|integer(int32)|false|none|none|
-|name|string|true|none|none|
-|items|[[ScheduleItem](#schemascheduleitem)]|true|none|none|
-
-<h2 id="tocS_ScheduleDay">ScheduleDay</h2>
-<!-- backwards compatibility -->
-<a id="schemascheduleday"></a>
-<a id="schema_ScheduleDay"></a>
-<a id="tocSscheduleday"></a>
-<a id="tocsscheduleday"></a>
+<a id="schemascheduledaydto"></a>
+<a id="schema_ScheduleDayDto"></a>
+<a id="tocSscheduledaydto"></a>
+<a id="tocsscheduledaydto"></a>
 
 ```json
 {
@@ -897,17 +945,47 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|integer(int32)|false|none|none|
-|day|string(date)|false|none|none|
-|scheduleId|integer(int32)|false|none|none|
-|schedule|[Schedule](#schemaschedule)|false|none|none|
+|id|integer(int32)|true|none|none|
+|day|string(date)|true|none|none|
+|scheduleId|integer(int32)|true|none|none|
+|schedule|[ScheduleDto](#schemascheduledto)|true|none|none|
 
-<h2 id="tocS_ScheduleItem">ScheduleItem</h2>
+<h2 id="tocS_ScheduleDto">ScheduleDto</h2>
 <!-- backwards compatibility -->
-<a id="schemascheduleitem"></a>
-<a id="schema_ScheduleItem"></a>
-<a id="tocSscheduleitem"></a>
-<a id="tocsscheduleitem"></a>
+<a id="schemascheduledto"></a>
+<a id="schema_ScheduleDto"></a>
+<a id="tocSscheduledto"></a>
+<a id="tocsscheduledto"></a>
+
+```json
+{
+  "id": 0,
+  "name": "string",
+  "items": [
+    {
+      "periodName": "string",
+      "startTime": "14:15:22Z",
+      "endTime": "14:15:22Z"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|integer(int32)|true|none|none|
+|name|string|true|none|none|
+|items|[[ScheduleItemDto](#schemascheduleitemdto)]|true|none|none|
+
+<h2 id="tocS_ScheduleItemDto">ScheduleItemDto</h2>
+<!-- backwards compatibility -->
+<a id="schemascheduleitemdto"></a>
+<a id="schema_ScheduleItemDto"></a>
+<a id="tocSscheduleitemdto"></a>
+<a id="tocsscheduleitemdto"></a>
 
 ```json
 {
@@ -923,6 +1001,6 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |periodName|string|true|none|none|
-|startTime|string(time)|false|none|none|
-|endTime|string(time)|false|none|none|
+|startTime|string(time)|true|none|none|
+|endTime|string(time)|true|none|none|
 

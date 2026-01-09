@@ -63,7 +63,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BusArrival"
+                    "$ref": "#/components/schemas/BusArrivalDto"
                   }
                 }
               },
@@ -71,7 +71,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BusArrival"
+                    "$ref": "#/components/schemas/BusArrivalDto"
                   }
                 }
               },
@@ -79,11 +79,44 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/BusArrival"
+                    "$ref": "#/components/schemas/BusArrivalDto"
                   }
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Bus/Reports/Generate": {
+      "get": {
+        "tags": [
+          "Bus"
+        ],
+        "summary": "Generates a CSV report of all bus arrival data",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "default": null
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -130,17 +163,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStoryDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStoryDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStoryDto"
                 }
               }
             }
@@ -160,17 +193,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                  "$ref": "#/components/schemas/NewsApiResponseOfIEnumerableOfNewsStoryDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                  "$ref": "#/components/schemas/NewsApiResponseOfIEnumerableOfNewsStoryDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NewsApiResponseOfNewsStory"
+                  "$ref": "#/components/schemas/NewsApiResponseOfIEnumerableOfNewsStoryDto"
                 }
               }
             }
@@ -190,17 +223,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeek"
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeekDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeek"
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeekDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeek"
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuWeekDto"
                 }
               }
             }
@@ -220,17 +253,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDay"
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDayDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDay"
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDayDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDay"
+                  "$ref": "#/components/schemas/NutrisliceApiResponseOfMenuDayDto"
                 }
               }
             }
@@ -261,17 +294,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/ScheduleDay"
+                  "$ref": "#/components/schemas/ScheduleDayDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ScheduleDay"
+                  "$ref": "#/components/schemas/ScheduleDayDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ScheduleDay"
+                  "$ref": "#/components/schemas/ScheduleDayDto"
                 }
               }
             }
@@ -307,24 +340,19 @@
           }
         }
       },
-      "BusArrival": {
+      "BusArrivalDto": {
         "required": [
           "busName",
-          "busPosition"
+          "busPosition",
+          "arrivalTime"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
           "busName": {
-            "maxLength": 100,
             "type": "string",
             "nullable": true
           },
           "busPosition": {
-            "maxLength": 50,
             "type": "string",
             "nullable": true
           },
@@ -334,7 +362,7 @@
           }
         }
       },
-      "FoodItem": {
+      "FoodItemDto": {
         "required": [
           "id",
           "name",
@@ -366,7 +394,26 @@
           }
         }
       },
-      "Link": {
+      "LinkApiResponse": {
+        "required": [
+          "count",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LinkDto"
+            }
+          }
+        }
+      },
+      "LinkDto": {
         "required": [
           "name",
           "target"
@@ -382,26 +429,7 @@
           }
         }
       },
-      "LinkApiResponse": {
-        "required": [
-          "count",
-          "data"
-        ],
-        "type": "object",
-        "properties": {
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            }
-          }
-        }
-      },
-      "MenuDay": {
+      "MenuDayDto": {
         "required": [
           "date",
           "menuItems"
@@ -415,12 +443,12 @@
           "menuItems": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MenuItem"
+              "$ref": "#/components/schemas/MenuItemDto"
             }
           }
         }
       },
-      "MenuDay2": {
+      "MenuDayDto2": {
         "required": [
           "date",
           "menuItems"
@@ -434,13 +462,13 @@
           "menuItems": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MenuItem"
+              "$ref": "#/components/schemas/MenuItemDto"
             }
           }
         },
         "nullable": true
       },
-      "MenuItem": {
+      "MenuItemDto": {
         "required": [
           "date",
           "position",
@@ -471,7 +499,7 @@
             "nullable": true
           },
           "food": {
-            "$ref": "#/components/schemas/FoodItem"
+            "$ref": "#/components/schemas/FoodItemDto"
           },
           "stationID": {
             "type": "integer",
@@ -490,7 +518,7 @@
           }
         }
       },
-      "MenuWeek": {
+      "MenuWeekDto": {
         "required": [
           "startDate",
           "displayName",
@@ -509,13 +537,13 @@
           "days": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MenuDay"
+              "$ref": "#/components/schemas/MenuDayDto"
             }
           }
         },
         "nullable": true
       },
-      "NewsApiResponseOfNewsStory": {
+      "NewsApiResponseOfIEnumerableOfNewsStoryDto": {
         "required": [
           "data",
           "expiry"
@@ -523,7 +551,11 @@
         "type": "object",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/NewsStory"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewsStoryDto2"
+            },
+            "nullable": true
           },
           "expiry": {
             "type": "string",
@@ -532,7 +564,24 @@
           }
         }
       },
-      "NewsStory": {
+      "NewsApiResponseOfNewsStoryDto": {
+        "required": [
+          "data",
+          "expiry"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/NewsStoryDto"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "NewsStoryDto": {
         "required": [
           "title",
           "link",
@@ -558,64 +607,72 @@
         },
         "nullable": true
       },
-      "NutrisliceApiResponseOfMenuDay": {
+      "NewsStoryDto2": {
         "required": [
-          "data",
-          "expiry"
+          "title",
+          "link",
+          "imageLink",
+          "createdAt"
         ],
         "type": "object",
         "properties": {
-          "data": {
-            "$ref": "#/components/schemas/MenuDay2"
-          },
-          "expiry": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        }
-      },
-      "NutrisliceApiResponseOfMenuWeek": {
-        "required": [
-          "data",
-          "expiry"
-        ],
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/MenuWeek"
-          },
-          "expiry": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        }
-      },
-      "Schedule": {
-        "required": [
-          "name",
-          "items"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
+          "title": {
             "type": "string"
           },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ScheduleItem"
-            }
+          "link": {
+            "type": "string"
+          },
+          "imageLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
           }
-        },
-        "nullable": true
+        }
       },
-      "ScheduleDay": {
+      "NutrisliceApiResponseOfMenuDayDto": {
+        "required": [
+          "data",
+          "expiry"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MenuDayDto2"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "NutrisliceApiResponseOfMenuWeekDto": {
+        "required": [
+          "data",
+          "expiry"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MenuWeekDto"
+          },
+          "expiry": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "ScheduleDayDto": {
+        "required": [
+          "id",
+          "day",
+          "scheduleId",
+          "schedule"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -631,13 +688,39 @@
             "format": "int32"
           },
           "schedule": {
-            "$ref": "#/components/schemas/Schedule"
+            "$ref": "#/components/schemas/ScheduleDto"
           }
         }
       },
-      "ScheduleItem": {
+      "ScheduleDto": {
         "required": [
-          "periodName"
+          "id",
+          "name",
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleItemDto"
+            }
+          }
+        },
+        "nullable": true
+      },
+      "ScheduleItemDto": {
+        "required": [
+          "periodName",
+          "startTime",
+          "endTime"
         ],
         "type": "object",
         "properties": {

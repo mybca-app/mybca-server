@@ -29,4 +29,27 @@ public class BusArrivalService(AppDbContext db) : IBusArrivalService
 
         return arrivals;
     }
+
+    public async Task<IEnumerable<BusArrival>> GetArrivalsAsync(
+        DateOnly? start = null,
+        DateOnly? end = null)
+    {
+        IQueryable<BusArrival> query = db.BusArrivals;
+
+        if (start.HasValue)
+        {
+            query = query.Where(a =>
+                a.ArrivalTime >= start.Value.ToDateTime(TimeOnly.MinValue));
+        }
+
+        if (end.HasValue)
+        {
+            query = query.Where(a =>
+                a.ArrivalTime <= end.Value.ToDateTime(TimeOnly.MaxValue));
+        }
+
+        return await query
+            .OrderByDescending(a => a.ArrivalTime)
+            .ToListAsync();
+    }
 }
