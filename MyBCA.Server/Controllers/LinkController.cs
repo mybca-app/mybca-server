@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Server.Models.Links.Responses;
+using MyBCA.Server.Dtos.Links;
 using MyBCA.Server.Services.Links;
 using Microsoft.AspNetCore.Cors;
+using MyBCA.Server.Mappings;
 
 namespace MyBCA.Server.Controllers;
 
@@ -15,6 +16,6 @@ public class LinkController(ILinkService linkService) : ControllerBase
     public ActionResult<LinkApiResponse> GetLinks()
     {
         var links = linkService.GetLinks();
-        return Ok(new LinkApiResponse(links.Count(), links));
+        return Ok(new LinkApiResponse(links.Count(), links.Select(l => l.ToDto())));
     }
 }

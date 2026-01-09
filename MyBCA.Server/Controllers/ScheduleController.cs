@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using MyBCA.Server.Services.Schedule;
 using MyBCA.Server.Models.Schedule;
+using MyBCA.Server.Dtos.Schedule;
+using MyBCA.Server.Mappings;
 
 namespace MyBCA.Server.Controllers;
 
@@ -12,10 +14,10 @@ public class ScheduleController(IScheduleService scheduleService) : ControllerBa
 {
     [EndpointSummary("Retrieves details of the schedule for a day")]
     [HttpGet("Day/{date}")]
-    public async Task<ActionResult<ScheduleDay?>> Day(DateOnly date)
+    public async Task<ActionResult<ScheduleDayDto>> Day(DateOnly date)
     {
         var schedule = await scheduleService.GetScheduleDayAsync(date);
 
-        return schedule is null ? Ok(new { }) : Ok(schedule);
+        return schedule is null ? Ok(new { }) : Ok(schedule.ToDto());
     }
 }
