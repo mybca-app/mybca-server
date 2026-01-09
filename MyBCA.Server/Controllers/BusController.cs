@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Server.Models.Bus.Responses;
+using MyBCA.Server.Dtos.Bus;
 using MyBCA.Server.Services.Bus;
 using Microsoft.AspNetCore.Cors;
 using MyBCA.Server.Models.Bus;
+using MyBCA.Server.Mappings;
 
 namespace MyBCA.Server.Controllers;
 
@@ -22,10 +23,10 @@ public class BusController(IBusService busService, IBusArrivalService arrivalSer
     
     [EndpointSummary("Retrieves a history of a bus's arrivals")]
     [HttpGet("History")]
-    public async Task<ActionResult<IEnumerable<BusArrival>>> History(string bus)
+    public async Task<ActionResult<IEnumerable<BusArrivalDto>>> History(string bus)
     {
         var arrivals = await arrivalService.GetArrivalsByBusAsync(bus);
 
-        return Ok(arrivals);
+        return Ok(arrivals.Select(a => a.ToDto()));
     }
 }

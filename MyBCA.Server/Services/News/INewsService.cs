@@ -1,5 +1,4 @@
 using MyBCA.Server.Models.News;
-using MyBCA.Server.Models.News.Responses;
 
 namespace MyBCA.Server.Services.News;
 
