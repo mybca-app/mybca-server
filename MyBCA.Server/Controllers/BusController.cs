@@ -33,9 +33,9 @@ public class BusController(IBusService busService, IBusArrivalService arrivalSer
 
     [EndpointSummary("Generates a CSV report of all bus arrival data")]
     [HttpGet("Reports/Generate")]
-    public async Task<FileContentResult> GenerateReport()
+    public async Task<FileContentResult> GenerateReport(DateOnly? start = null, DateOnly? end = null)
     {
-        var dtos = (await arrivalService.GetAllArrivalsAsync()).Select(a => a.ToDto());
+        var dtos = (await arrivalService.GetArrivalsAsync(start, end)).Select(a => a.ToDto());
 
         var sb = new StringBuilder();
         sb.AppendLine("bus_name,bus_position,arrival_time");

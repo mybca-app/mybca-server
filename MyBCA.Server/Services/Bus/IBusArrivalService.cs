@@ -6,5 +6,5 @@ public interface IBusArrivalService
 {
     Task<BusArrival> CreateArrivalAsync(string bus, string location);
     Task<IEnumerable<BusArrival>> GetArrivalsByBusAsync(string bus);
-    Task<IEnumerable<BusArrival>> GetAllArrivalsAsync();
+    Task<IEnumerable<BusArrival>> GetArrivalsAsync(DateOnly? start, DateOnly? end);
 }
