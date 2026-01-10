@@ -38,18 +38,23 @@ public class BusController(IBusService busService, IBusArrivalService arrivalSer
         var dtos = (await arrivalService.GetArrivalsAsync(start, end)).Select(a => a.ToDto());
 
         var sb = new StringBuilder();
-        sb.AppendLine("bus_name,bus_position,arrival_time");
+        sb.AppendLine("bus_name,bus_position,detected_date,detected_time");
 
         foreach (var arrival in dtos)
         {
-            var date = arrival.ArrivalTime.ToLocalTime().ToString("MM/dd/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            sb.AppendLine($"{Escape(arrival.BusName ?? "")},{Escape(arrival.BusPosition ?? "")},{Escape(date)}");
+            var local = arrival.ArrivalTime.ToLocalTime();
+            var date = local.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var time = local.ToString("h:mm:ss tt", CultureInfo.InvariantCulture);
+            sb.Append($"{Escape(arrival.BusName ?? "")},");
+            sb.Append($"{Escape(arrival.BusPosition ?? "")},");
+            sb.Append($"{Escape(date)},");
+            sb.AppendLine($"{Escape(time)}");
         }
 
         return File(
             Encoding.UTF8.GetBytes(sb.ToString()),
             "text/csv",
-            "mybca_bus_report.csv"
+            $"mybca-report-bus-{DateTime.Now:yyyy-MM-dd}.csv"
         );
     }
 
