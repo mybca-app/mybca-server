@@ -41,15 +41,37 @@ public class NewsService(IOptions<NewsOptions> options, ILogger<NewsService> log
             PerPage = 10,
         });
 
-        var stories = await Task.WhenAll(wpPosts.Select(async post =>
-        {
-            var media = post.FeaturedMedia.HasValue && post.FeaturedMedia.Value > 0
-                ? await _wordpressClient.Media.GetByIDAsync(post.FeaturedMedia) : null;
+        var stories = await Task.WhenAll(
+            wpPosts.Select(async post =>
+            {
+                string? mediaUrl = null;
 
-            return new NewsStory(
-                post.Title.Rendered, post.Link, media?.SourceUrl, post.DateGmt
-            );
-        }));
+                if (post.FeaturedMedia is > 0)
+                {
+                    try
+                    {
+                        var media = await _wordpressClient.Media.GetByIDAsync(post.FeaturedMedia);
+                        mediaUrl = media?.SourceUrl;
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogDebug(
+                            ex,
+                            "Failed to load featured media for post {PostId}",
+                            post.Id
+                        );
+                    }
+                }
+
+                return new NewsStory(
+                    post.Title.Rendered,
+                    post.Link,
+                    mediaUrl,
+                    post.DateGmt
+                );
+            })
+        );
+
 
         var cacheEntryOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(options.Value.CacheTtl);
