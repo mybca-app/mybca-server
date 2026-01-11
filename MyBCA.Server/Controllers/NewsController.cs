@@ -8,12 +8,12 @@ using MyBCA.Server.Mappings;
 namespace MyBCA.Server.Controllers;
 
 [ApiController]
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [EnableCors("AllowAll")]
 public class NewsController(INewsService newsService) : ControllerBase
 {
     [EndpointSummary("Retrieves the latest news story")]
-    [HttpGet]
+    [HttpGet("Stories/Latest")]
     public async Task<ActionResult<NewsApiResponse<NewsStoryDto>>> Latest()
     {
         var story = await newsService.GetLatestStoryAsync();
@@ -22,7 +22,7 @@ public class NewsController(INewsService newsService) : ControllerBase
     }
 
     [EndpointSummary("Retrieves the top 10 latest news stories")]
-    [HttpGet]
+    [HttpGet("Stories")]
     public async Task<ActionResult<NewsApiResponse<IEnumerable<NewsStoryDto>>>> List()
     {
         var stories = await newsService.GetLatestStoriesAsync();
@@ -33,5 +33,25 @@ public class NewsController(INewsService newsService) : ControllerBase
                 newsService.Expiry
             )
         );
+    }
+
+    [EndpointSummary("Retrieves a story by its ID")]
+    [HttpGet("Stories/{id}")]
+    public async Task<ActionResult<NewsStoryDto?>> ById(int id)
+    {
+        var story = await newsService.GetStoryById(id);
+
+        if (story is null)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status404NotFound,
+                type: $"/errors/StoryNotFound",
+                title: "Resource Not Found",
+                detail: "Story for the given ID not found.",
+                instance: HttpContext.Request.Path
+            );
+        }
+
+        return Ok(story);
     }
 }

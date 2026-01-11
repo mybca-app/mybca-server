@@ -167,11 +167,11 @@ This operation does not require authentication
 
 <h1 id="mybca-server-v1-news">News</h1>
 
-## get__api_News_Latest
+## get__api_News_Stories_Latest
 
 > Code samples
 
-`GET /api/News/Latest`
+`GET /api/News/Stories/Latest`
 
 *Retrieves the latest news story*
 
@@ -180,22 +180,24 @@ This operation does not require authentication
 > 200 Response
 
 ```
-{"data":{"title":"string","link":"string","imageLink":"string","createdAt":"2019-08-24T14:15:22Z"},"expiry":"2019-08-24T14:15:22Z"}
+{"data":{"id":0,"title":"string","link":"string","imageLink":"string","contentHtml":"string","createdAt":"2019-08-24T14:15:22Z"},"expiry":"2019-08-24T14:15:22Z"}
 ```
 
 ```json
 {
   "data": {
+    "id": 0,
     "title": "string",
     "link": "string",
     "imageLink": "string",
+    "contentHtml": "string",
     "createdAt": "2019-08-24T14:15:22Z"
   },
   "expiry": "2019-08-24T14:15:22Z"
 }
 ```
 
-<h3 id="get__api_news_latest-responses">Responses</h3>
+<h3 id="get__api_news_stories_latest-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -205,11 +207,11 @@ This operation does not require authentication
 This operation does not require authentication
 </aside>
 
-## get__api_News_List
+## get__api_News_Stories
 
 > Code samples
 
-`GET /api/News/List`
+`GET /api/News/Stories`
 
 *Retrieves the top 10 latest news stories*
 
@@ -218,16 +220,18 @@ This operation does not require authentication
 > 200 Response
 
 ```
-{"data":[{"title":"string","link":"string","imageLink":"string","createdAt":"2019-08-24T14:15:22Z"}],"expiry":"2019-08-24T14:15:22Z"}
+{"data":[{"id":0,"title":"string","link":"string","imageLink":"string","contentHtml":"string","createdAt":"2019-08-24T14:15:22Z"}],"expiry":"2019-08-24T14:15:22Z"}
 ```
 
 ```json
 {
   "data": [
     {
+      "id": 0,
       "title": "string",
       "link": "string",
       "imageLink": "string",
+      "contentHtml": "string",
       "createdAt": "2019-08-24T14:15:22Z"
     }
   ],
@@ -235,11 +239,54 @@ This operation does not require authentication
 }
 ```
 
-<h3 id="get__api_news_list-responses">Responses</h3>
+<h3 id="get__api_news_stories-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsApiResponseOfIEnumerableOfNewsStoryDto](#schemanewsapiresponseofienumerableofnewsstorydto)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__api_News_Stories_{id}
+
+> Code samples
+
+`GET /api/News/Stories/{id}`
+
+*Retrieves a story by its ID*
+
+<h3 id="get__api_news_stories_{id}-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|id|path|integer(int32)|true|none|
+
+> Example responses
+
+> 200 Response
+
+```
+{"id":0,"title":"string","link":"string","imageLink":"string","contentHtml":"string","createdAt":"2019-08-24T14:15:22Z"}
+```
+
+```json
+{
+  "id": 0,
+  "title": "string",
+  "link": "string",
+  "imageLink": "string",
+  "contentHtml": "string",
+  "createdAt": "2019-08-24T14:15:22Z"
+}
+```
+
+<h3 id="get__api_news_stories_{id}-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[NewsStoryDto2](#schemanewsstorydto2)|
 
 <aside class="success">
 This operation does not require authentication
@@ -725,9 +772,11 @@ This operation does not require authentication
 {
   "data": [
     {
+      "id": 0,
       "title": "string",
       "link": "string",
       "imageLink": "string",
+      "contentHtml": "string",
       "createdAt": "2019-08-24T14:15:22Z"
     }
   ],
@@ -753,9 +802,11 @@ This operation does not require authentication
 ```json
 {
   "data": {
+    "id": 0,
     "title": "string",
     "link": "string",
     "imageLink": "string",
+    "contentHtml": "string",
     "createdAt": "2019-08-24T14:15:22Z"
   },
   "expiry": "2019-08-24T14:15:22Z"
@@ -779,9 +830,11 @@ This operation does not require authentication
 
 ```json
 {
+  "id": 0,
   "title": "string",
   "link": "string",
   "imageLink": "string",
+  "contentHtml": "string",
   "createdAt": "2019-08-24T14:15:22Z"
 }
 
@@ -791,9 +844,11 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
+|id|integer(int32)|true|none|none|
 |title|string|true|none|none|
 |link|string|true|none|none|
 |imageLink|string¦null|true|none|none|
+|contentHtml|string¦null|true|none|none|
 |createdAt|string(date-time)|true|none|none|
 
 <h2 id="tocS_NewsStoryDto2">NewsStoryDto2</h2>
@@ -805,9 +860,11 @@ This operation does not require authentication
 
 ```json
 {
+  "id": 0,
   "title": "string",
   "link": "string",
   "imageLink": "string",
+  "contentHtml": "string",
   "createdAt": "2019-08-24T14:15:22Z"
 }
 
@@ -817,9 +874,11 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
+|id|integer(int32)|true|none|none|
 |title|string|true|none|none|
 |link|string|true|none|none|
 |imageLink|string¦null|true|none|none|
+|contentHtml|string¦null|true|none|none|
 |createdAt|string(date-time)|true|none|none|
 
 <h2 id="tocS_NutrisliceApiResponseOfMenuDayDto">NutrisliceApiResponseOfMenuDayDto</h2>

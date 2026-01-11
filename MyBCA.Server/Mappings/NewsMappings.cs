@@ -8,10 +8,12 @@ public static class NewsMappings
     public static NewsStoryDto ToDto(this NewsStory story)
     {
         return new NewsStoryDto(
+            Id: story.Id,
             Title: story.Title,
             Link: story.Link,
             ImageLink: story.ImageLink,
-            CreatedAt: story.CreatedAt
+            CreatedAt: story.CreatedAt,
+            ContentHtml: story.ContentHtml
         );
     }
 }

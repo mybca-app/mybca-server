@@ -151,7 +151,7 @@
         }
       }
     },
-    "/api/News/Latest": {
+    "/api/News/Stories/Latest": {
       "get": {
         "tags": [
           "News"
@@ -181,7 +181,7 @@
         }
       }
     },
-    "/api/News/List": {
+    "/api/News/Stories": {
       "get": {
         "tags": [
           "News"
@@ -204,6 +204,47 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NewsApiResponseOfIEnumerableOfNewsStoryDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/News/Stories/{id}": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "summary": "Retrieves a story by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryDto2"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryDto2"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsStoryDto2"
                 }
               }
             }
@@ -583,13 +624,19 @@
       },
       "NewsStoryDto": {
         "required": [
+          "id",
           "title",
           "link",
           "imageLink",
+          "contentHtml",
           "createdAt"
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "title": {
             "type": "string"
           },
@@ -597,6 +644,10 @@
             "type": "string"
           },
           "imageLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentHtml": {
             "type": "string",
             "nullable": true
           },
@@ -609,13 +660,19 @@
       },
       "NewsStoryDto2": {
         "required": [
+          "id",
           "title",
           "link",
           "imageLink",
+          "contentHtml",
           "createdAt"
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "title": {
             "type": "string"
           },
@@ -623,6 +680,10 @@
             "type": "string"
           },
           "imageLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentHtml": {
             "type": "string",
             "nullable": true
           },

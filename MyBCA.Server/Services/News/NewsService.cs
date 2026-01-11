@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MyBCA.Server.Models;
 using MyBCA.Server.Models.News;
 using WordPressPCL;
+using WordPressPCL.Models;
 
 namespace MyBCA.Server.Services.News;
 
@@ -25,6 +26,28 @@ public class NewsService(IOptions<NewsOptions> options, ILogger<NewsService> log
         }
     }
 
+    private async Task<string?> GetFeaturedImageUrlAsync(Post post)
+    {
+        if (post.FeaturedMedia is > 0)
+        {
+            try
+            {
+                var media = await _wordpressClient.Media.GetByIDAsync(post.FeaturedMedia);
+                return media?.SourceUrl;
+            }
+            catch (Exception ex)
+            {
+                logger.LogDebug(
+                    ex,
+                    "Failed to load featured media for post {PostId}",
+                    post.Id
+                );
+            }
+        }
+
+        return null;
+    }
+
     public async Task<IEnumerable<NewsStory>> GetLatestStoriesAsync()
     {
         if (cache.TryGetValue<CacheItem<IEnumerable<NewsStory>>>(CacheKey, out var cachedStories))
@@ -44,30 +67,15 @@ public class NewsService(IOptions<NewsOptions> options, ILogger<NewsService> log
         var stories = await Task.WhenAll(
             wpPosts.Select(async post =>
             {
-                string? mediaUrl = null;
-
-                if (post.FeaturedMedia is > 0)
-                {
-                    try
-                    {
-                        var media = await _wordpressClient.Media.GetByIDAsync(post.FeaturedMedia);
-                        mediaUrl = media?.SourceUrl;
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.LogDebug(
-                            ex,
-                            "Failed to load featured media for post {PostId}",
-                            post.Id
-                        );
-                    }
-                }
+                var mediaUrl = await GetFeaturedImageUrlAsync(post);
 
                 return new NewsStory(
-                    post.Title.Rendered,
-                    post.Link,
-                    mediaUrl,
-                    post.DateGmt
+                    Id: post.Id,
+                    Title: post.Title.Rendered,
+                    Link: post.Link,
+                    ImageLink: mediaUrl,
+                    ContentHtml: null,
+                    CreatedAt: post.DateGmt
                 );
             })
         );
@@ -88,5 +96,24 @@ public class NewsService(IOptions<NewsOptions> options, ILogger<NewsService> log
     {
         var latestList = await GetLatestStoriesAsync();
         return latestList.First();
+    }
+
+    public async Task<NewsStory?> GetStoryById(int id)
+    {
+        var post = await _wordpressClient.Posts.GetByIDAsync(id);
+        if (post is null)
+        {
+            return null;
+        }
+
+        var mediaUrl = await GetFeaturedImageUrlAsync(post);
+        return new NewsStory(
+            Id: post.Id,
+            Title: post.Title.Rendered,
+            Link: post.Link,
+            ImageLink: mediaUrl,
+            ContentHtml: post.Content.Rendered,
+            CreatedAt: post.DateGmt
+        );
     }
 }
