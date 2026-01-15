@@ -6,7 +6,7 @@
 
 Base URLs:
 
-* <a href="https://main-service-prod-oc1.mybca.link/">https://main-service-prod-oc1.mybca.link/</a>
+* <a href="http://localhost:5022/">http://localhost:5022/</a>
 
 <h1 id="mybca-server-v1-bus">Bus</h1>
 
@@ -42,6 +42,47 @@ Base URLs:
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[BusApiResponse](#schemabusapiresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## get__api_Bus_Info
+
+> Code samples
+
+`GET /api/Bus/Info`
+
+*Retrieves information about a bus*
+
+<h3 id="get__api_bus_info-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|bus|query|string|false|none|
+
+> Example responses
+
+> 200 Response
+
+```
+{"name":"string","company":{"name":"string"}}
+```
+
+```json
+{
+  "name": "string",
+  "company": {
+    "name": "string"
+  }
+}
+```
+
+<h3 id="get__api_bus_info-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK|[BusInfoDto](#schemabusinfodto)|
 
 <aside class="success">
 This operation does not require authentication
@@ -514,6 +555,50 @@ This operation does not require authentication
 |busName|string¦null|true|none|none|
 |busPosition|string¦null|true|none|none|
 |arrivalTime|string(date-time)|true|none|none|
+
+<h2 id="tocS_BusCompanyDto">BusCompanyDto</h2>
+<!-- backwards compatibility -->
+<a id="schemabuscompanydto"></a>
+<a id="schema_BusCompanyDto"></a>
+<a id="tocSbuscompanydto"></a>
+<a id="tocsbuscompanydto"></a>
+
+```json
+{
+  "name": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|name|string|true|none|none|
+
+<h2 id="tocS_BusInfoDto">BusInfoDto</h2>
+<!-- backwards compatibility -->
+<a id="schemabusinfodto"></a>
+<a id="schema_BusInfoDto"></a>
+<a id="tocSbusinfodto"></a>
+<a id="tocsbusinfodto"></a>
+
+```json
+{
+  "name": "string",
+  "company": {
+    "name": "string"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|name|string|true|none|none|
+|company|[BusCompanyDto](#schemabuscompanydto)|true|none|none|
 
 <h2 id="tocS_FoodItemDto">FoodItemDto</h2>
 <!-- backwards compatibility -->
