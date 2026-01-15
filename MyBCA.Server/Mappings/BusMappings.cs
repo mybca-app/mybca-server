@@ -13,4 +13,19 @@ public static class BusMappings
             ArrivalTime: arrival.ArrivalTime
         );
     }
+
+    public static BusCompanyDto ToDto(this BusCompany company)
+    {
+        return new BusCompanyDto(
+            Name: company.Name
+        );
+    }
+
+    public static BusInfoDto ToDto(this BusInfo info)
+    {
+        return new BusInfoDto(
+            Name: info.Name,
+            Company: info.Company?.ToDto()
+        );
+    }
 }

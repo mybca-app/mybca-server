@@ -40,6 +40,45 @@
         }
       }
     },
+    "/api/Bus/Info": {
+      "get": {
+        "tags": [
+          "Bus"
+        ],
+        "summary": "Retrieves information about a bus",
+        "parameters": [
+          {
+            "name": "bus",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusInfoDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusInfoDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusInfoDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Bus/History": {
       "get": {
         "tags": [
@@ -400,6 +439,33 @@
           "arrivalTime": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "BusCompanyDto": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": true
+      },
+      "BusInfoDto": {
+        "required": [
+          "name",
+          "company"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "company": {
+            "$ref": "#/components/schemas/BusCompanyDto"
           }
         }
       },

@@ -4,7 +4,7 @@ using MyBCA.Server.Models.Bus;
 
 namespace MyBCA.Server.Services.Bus;
 
-public class BusArrivalService(AppDbContext db) : IBusArrivalService
+public class BusInfoService(AppDbContext db) : IBusInfoService
 {
     public async Task<BusArrival> CreateArrivalAsync(string bus, string location)
     {
@@ -51,5 +51,13 @@ public class BusArrivalService(AppDbContext db) : IBusArrivalService
         return await query
             .OrderByDescending(a => a.ArrivalTime)
             .ToListAsync();
+    }
+
+    public async Task<BusInfo?> GetInfoByBusAsync(string bus)
+    {
+        return await db.BusInfos
+            .Where(i => i.Name == bus)
+            .Include(i => i.Company)
+            .FirstOrDefaultAsync();
     }
 }
