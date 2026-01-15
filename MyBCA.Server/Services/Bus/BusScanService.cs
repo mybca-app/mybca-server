@@ -7,7 +7,7 @@ using MyBCA.Server.Services.Notifications;
 
 namespace MyBCA.Server.Services.Bus;
 
-public partial class BusScanService(IServiceProvider services, FcmService fcmService, HttpClient httpClient, IOptions<BusOptions> options, ILogger<BusScanService> logger) : BackgroundService
+public class BusScanService(IServiceProvider services, FcmService fcmService, HttpClient httpClient, IOptions<BusOptions> options, ILogger<BusScanService> logger) : BackgroundService
 {
     public string? SourceUrl => options.Value.BaseUrl;
 
@@ -110,7 +110,7 @@ public partial class BusScanService(IServiceProvider services, FcmService fcmSer
                     {
                         using (var scope = services.CreateScope())
                         {
-                            var busLogService = scope.ServiceProvider.GetRequiredService<IBusArrivalService>();
+                            var busLogService = scope.ServiceProvider.GetRequiredService<IBusInfoService>();
                             await busLogService.CreateArrivalAsync(change.Town, change.NewPosition);
                         }
                         await SendPositionChangeNotif(change);

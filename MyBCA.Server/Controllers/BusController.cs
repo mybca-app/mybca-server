@@ -11,7 +11,7 @@ namespace MyBCA.Server.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [EnableCors("AllowAll")]
-public class BusController(IBusService busService, IBusArrivalService arrivalService) : ControllerBase
+public class BusController(IBusService busService, IBusInfoService busInfoService) : ControllerBase
 {
     [EndpointSummary("Retrieves a map of each bus to its position")]
     [HttpGet("List")]
@@ -22,11 +22,31 @@ public class BusController(IBusService busService, IBusArrivalService arrivalSer
         return Ok(new BusApiResponse(locations.Count, locations, busService.Expiry));
     }
 
+    [EndpointSummary("Retrieves information about a bus")]
+    [HttpGet("Info")]
+    public async Task<ActionResult<BusInfoDto?>> Info(string bus)
+    {
+        var info = await busInfoService.GetInfoByBusAsync(bus);
+
+        if (info is null)
+        {
+            return Problem(
+                statusCode: StatusCodes.Status404NotFound,
+                type: $"/errors/BusInfoNotFound",
+                title: "Resource Not Found",
+                detail: "Bus info for the given name not found.",
+                instance: HttpContext.Request.Path
+            );
+        }
+
+        return Ok(info.ToDto());
+    }
+
     [EndpointSummary("Retrieves a history of a bus's arrivals")]
     [HttpGet("History")]
     public async Task<ActionResult<IEnumerable<BusArrivalDto>>> History(string bus)
     {
-        var arrivals = await arrivalService.GetArrivalsByBusAsync(bus);
+        var arrivals = await busInfoService.GetArrivalsByBusAsync(bus);
 
         return Ok(arrivals.Select(a => a.ToDto()));
     }
@@ -35,7 +55,7 @@ public class BusController(IBusService busService, IBusArrivalService arrivalSer
     [HttpGet("Reports/Generate")]
     public async Task<FileContentResult> GenerateReport(DateOnly? start = null, DateOnly? end = null)
     {
-        var dtos = (await arrivalService.GetArrivalsAsync(start, end)).Select(a => a.ToDto());
+        var dtos = (await busInfoService.GetArrivalsAsync(start, end)).Select(a => a.ToDto());
 
         var sb = new StringBuilder();
         sb.AppendLine("bus_name,bus_position,detected_date,detected_time");

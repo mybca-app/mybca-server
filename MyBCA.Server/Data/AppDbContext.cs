@@ -9,6 +9,7 @@ namespace MyBCA.Server.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<BusArrival> BusArrivals => Set<BusArrival>();
+    public DbSet<BusInfo> BusInfos => Set<BusInfo>();
     public DbSet<Schedule> Schedules => Set<Schedule>();
     public DbSet<ScheduleDay> ScheduleDays => Set<ScheduleDay>();
 

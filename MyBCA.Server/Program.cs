@@ -96,7 +96,7 @@ builder.Services.AddHttpClient<BusScanService>((sp, client) =>
 builder.Services.AddHostedService(sp =>
     sp.GetRequiredService<BusScanService>());
 
-builder.Services.AddScoped<IBusArrivalService, BusArrivalService>();
+builder.Services.AddScoped<IBusInfoService, BusInfoService>();
 
 var app = builder.Build();
 
