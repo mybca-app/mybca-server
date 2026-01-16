@@ -5,5 +5,6 @@ public record FoodItemDto(
     string? Name,
     string? Description,
     string? Subtext,
-    string? ImageUrl
+    string? ImageUrl,
+    FoodItemNutritionInfoDto? NutritionInfo
 );

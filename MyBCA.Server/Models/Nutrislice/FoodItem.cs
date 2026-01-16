@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace MyBCA.Server.Models.Nutrislice;
 
 public record FoodItem(
@@ -5,5 +7,6 @@ public record FoodItem(
     string? Name,
     string? Description,
     string? Subtext,
-    string? ImageUrl
+    string? ImageUrl,
+    [property: JsonPropertyName("rounded_nutrition_info")] FoodItemNutritionInfo? NutritionInfo
 );
