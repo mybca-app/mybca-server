@@ -10,6 +10,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<BusArrival> BusArrivals => Set<BusArrival>();
     public DbSet<BusInfo> BusInfos => Set<BusInfo>();
+    public DbSet<BusCompany> BusCompanies => Set<BusCompany>();
     public DbSet<Schedule> Schedules => Set<Schedule>();
     public DbSet<ScheduleDay> ScheduleDays => Set<ScheduleDay>();
 
