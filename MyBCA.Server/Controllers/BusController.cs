@@ -9,12 +9,14 @@ using System.Globalization;
 namespace MyBCA.Server.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/bus")]
+[Route("api/buses")]
 [EnableCors("AllowAll")]
 public class BusController(IBusService busService, IBusInfoService busInfoService) : ControllerBase
 {
     [EndpointSummary("Retrieves a map of each bus to its position")]
-    [HttpGet("List")]
+    [HttpGet("list")]
+    [HttpGet]
     public async Task<ActionResult<BusApiResponse>> List()
     {
         var locations = await busService.GetPositionsMapAsync();
@@ -23,7 +25,7 @@ public class BusController(IBusService busService, IBusInfoService busInfoServic
     }
 
     [EndpointSummary("Retrieves information about a bus")]
-    [HttpGet("Info")]
+    [HttpGet("info")]
     public async Task<ActionResult<BusInfoDto?>> Info(string bus)
     {
         var info = await busInfoService.GetInfoByBusAsync(bus);
@@ -43,7 +45,7 @@ public class BusController(IBusService busService, IBusInfoService busInfoServic
     }
 
     [EndpointSummary("Retrieves a history of a bus's arrivals")]
-    [HttpGet("History")]
+    [HttpGet("history")]
     public async Task<ActionResult<IEnumerable<BusArrivalDto>>> History(string bus)
     {
         var arrivals = await busInfoService.GetArrivalsByBusAsync(bus);
@@ -52,7 +54,7 @@ public class BusController(IBusService busService, IBusInfoService busInfoServic
     }
 
     [EndpointSummary("Generates a CSV report of all bus arrival data")]
-    [HttpGet("Reports/Generate")]
+    [HttpGet("reports/generate")]
     public async Task<FileContentResult> GenerateReport(DateOnly? start = null, DateOnly? end = null)
     {
         var dtos = (await busInfoService.GetArrivalsAsync(start, end)).Select(a => a.ToDto());

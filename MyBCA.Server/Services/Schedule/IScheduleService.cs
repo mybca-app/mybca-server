@@ -1,8 +1,8 @@
 namespace MyBCA.Server.Services.Schedule;
 
-using MyBCA.Server.Models.Schedule;
+using MyBCA.Server.Dtos.Schedule;
 
 public interface IScheduleService
 {
-    Task<ScheduleDay?> GetScheduleDayAsync(DateOnly date);
+    Task<ScheduleDayDto?> GetScheduleDayAsync(DateOnly date);
 }

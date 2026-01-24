@@ -7,7 +7,7 @@ using MyBCA.Server.Mappings;
 namespace MyBCA.Server.Controllers;
 
 [ApiController]
-[Route("api/Links")]
+[Route("api/links")]
 [EnableCors("AllowAll")]
 public class LinkController(ILinkService linkService) : ControllerBase
 {

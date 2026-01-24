@@ -13,7 +13,7 @@ namespace MyBCA.Server.Controllers;
 public class NewsController(INewsService newsService) : ControllerBase
 {
     [EndpointSummary("Retrieves the latest news story")]
-    [HttpGet("Stories/Latest")]
+    [HttpGet("stories/latest")]
     public async Task<ActionResult<NewsApiResponse<NewsStoryDto>>> Latest()
     {
         var story = await newsService.GetLatestStoryAsync();
@@ -22,7 +22,7 @@ public class NewsController(INewsService newsService) : ControllerBase
     }
 
     [EndpointSummary("Retrieves the top 10 latest news stories")]
-    [HttpGet("Stories")]
+    [HttpGet("stories")]
     public async Task<ActionResult<NewsApiResponse<IEnumerable<NewsStoryDto>>>> List()
     {
         var stories = await newsService.GetLatestStoriesAsync();
@@ -36,7 +36,7 @@ public class NewsController(INewsService newsService) : ControllerBase
     }
 
     [EndpointSummary("Retrieves a story by its ID")]
-    [HttpGet("Stories/{id}")]
+    [HttpGet("stories/{id}")]
     public async Task<ActionResult<NewsStoryDto?>> ById(int id)
     {
         var story = await newsService.GetStoryById(id);
