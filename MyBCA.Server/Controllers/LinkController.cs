@@ -16,6 +16,6 @@ public class LinkController(ILinkService linkService) : ControllerBase
     public ActionResult<LinkApiResponse> GetLinks()
     {
         var links = linkService.GetLinks();
-        return Ok(new LinkApiResponse(links.Count(), links.Select(l => l.ToDto())));
+        return Ok(new LinkApiResponse(links.Count(), links));
     }
 }

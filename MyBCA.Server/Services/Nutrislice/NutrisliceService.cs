@@ -1,6 +1,8 @@
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using MyBCA.Server.Dtos.Nutrislice;
+using MyBCA.Server.Mappings;
 using MyBCA.Server.Models;
 using MyBCA.Server.Models.Nutrislice;
 
@@ -23,12 +25,12 @@ public class NutrisliceService(ILogger<NutrisliceService> logger, HttpClient htt
         }
     }
 
-    public async Task<MenuWeek> GetMenuWeekAsync()
+    public async Task<MenuWeekDto> GetMenuWeekAsync()
     {
         if (cache.TryGetValue<CacheItem<MenuWeek>>(CacheKey, out var cachedWeek))
         {
             logger.LogDebug("Using cached Nutrislice data");
-            return cachedWeek!.Value;
+            return cachedWeek!.Value.ToDto();
         }
 
         try
@@ -52,7 +54,7 @@ public class NutrisliceService(ILogger<NutrisliceService> logger, HttpClient htt
                 Expiry = DateTime.Now + options.Value.CacheTtl
             }, cacheEntryOptions);
 
-            return response;
+            return response.ToDto();
         }
         catch (HttpRequestException ex)
         {
@@ -72,7 +74,7 @@ public class NutrisliceService(ILogger<NutrisliceService> logger, HttpClient htt
         }
     }
 
-    public async Task<MenuDay?> GetMenuDayAsync()
+    public async Task<MenuDayDto?> GetMenuDayAsync()
     {
         var weekData = await GetMenuWeekAsync();
         var todayWeekday = (int)DateTime.Now.DayOfWeek;

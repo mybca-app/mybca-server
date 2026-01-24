@@ -1,10 +1,10 @@
-using MyBCA.Server.Models.Nutrislice;
+using MyBCA.Server.Dtos.Nutrislice;
 
 namespace MyBCA.Server.Services.Nutrislice;
 
 public interface INutrisliceService
 {
-    Task<MenuWeek> GetMenuWeekAsync();
-    Task<MenuDay?> GetMenuDayAsync();
+    Task<MenuWeekDto> GetMenuWeekAsync();
+    Task<MenuDayDto?> GetMenuDayAsync();
     DateTime? Expiry { get; }
 }

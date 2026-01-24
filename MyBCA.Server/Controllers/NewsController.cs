@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using MyBCA.Server.Services.News;
 using MyBCA.Server.Dtos.News;
-using MyBCA.Server.Models.News;
 using MyBCA.Server.Mappings;
 
 namespace MyBCA.Server.Controllers;
@@ -18,7 +17,7 @@ public class NewsController(INewsService newsService) : ControllerBase
     {
         var story = await newsService.GetLatestStoryAsync();
 
-        return Ok(new NewsApiResponse<NewsStoryDto>(story.ToDto(), newsService.Expiry));
+        return Ok(new NewsApiResponse<NewsStoryDto>(story, newsService.Expiry));
     }
 
     [EndpointSummary("Retrieves the top 10 latest news stories")]
@@ -29,7 +28,7 @@ public class NewsController(INewsService newsService) : ControllerBase
 
         return Ok(
             new NewsApiResponse<IEnumerable<NewsStoryDto>>(
-                stories.Select(s => s.ToDto()),
+                stories,
                 newsService.Expiry
             )
         );

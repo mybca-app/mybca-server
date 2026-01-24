@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using MyBCA.Server.Models.Nutrislice;
 using MyBCA.Server.Dtos.Nutrislice;
 using MyBCA.Server.Services.Nutrislice;
 using Microsoft.AspNetCore.Cors;
-using MyBCA.Server.Mappings;
 
 namespace MyBCA.Server.Controllers;
 
@@ -17,7 +15,7 @@ public class NutrisliceController(INutrisliceService menuService) : ControllerBa
     public async Task<ActionResult<NutrisliceApiResponse<MenuWeekDto>>> Week()
     {
         var week = await menuService.GetMenuWeekAsync();
-        return Ok(new NutrisliceApiResponse<MenuWeekDto>(week.ToDto(), menuService.Expiry));
+        return Ok(new NutrisliceApiResponse<MenuWeekDto>(week, menuService.Expiry));
     }
 
     [EndpointSummary("Retrieves the lunch menu for the day")]
@@ -36,6 +34,6 @@ public class NutrisliceController(INutrisliceService menuService) : ControllerBa
             );
         }
 
-        return Ok(new NutrisliceApiResponse<MenuDayDto>(day.ToDto(), menuService.Expiry));
+        return Ok(new NutrisliceApiResponse<MenuDayDto>(day, menuService.Expiry));
     }
 }

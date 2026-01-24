@@ -1,11 +1,11 @@
-using MyBCA.Server.Models.News;
+using MyBCA.Server.Dtos.News;
 
 namespace MyBCA.Server.Services.News;
 
 public interface INewsService
 {
-    Task<IEnumerable<NewsStory>> GetLatestStoriesAsync();
-    Task<NewsStory> GetLatestStoryAsync();
-    Task<NewsStory?> GetStoryById(int id);
+    Task<IEnumerable<NewsStoryDto>> GetLatestStoriesAsync();
+    Task<NewsStoryDto> GetLatestStoryAsync();
+    Task<NewsStoryDto?> GetStoryById(int id);
     DateTime? Expiry { get; }
 }

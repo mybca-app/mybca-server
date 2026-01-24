@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using MyBCA.Server.Data;
+using MyBCA.Server.Dtos.Bus;
+using MyBCA.Server.Mappings;
 using MyBCA.Server.Models.Bus;
 
 namespace MyBCA.Server.Services.Bus;
 
 public class BusInfoService(AppDbContext db) : IBusInfoService
 {
-    public async Task<BusArrival> CreateArrivalAsync(string bus, string location)
+    public async Task<BusArrivalDto> CreateArrivalAsync(string bus, string location)
     {
         var log = new BusArrival
         {
@@ -17,20 +19,19 @@ public class BusInfoService(AppDbContext db) : IBusInfoService
         db.BusArrivals.Add(log);
         await db.SaveChangesAsync();
 
-        return log;
+        return log.ToDto();
     }
 
-    public async Task<IEnumerable<BusArrival>> GetArrivalsByBusAsync(string bus)
+    public async Task<IEnumerable<BusArrivalDto>> GetArrivalsByBusAsync(string bus)
     {
-        List<BusArrival> arrivals = await db.BusArrivals
+        return await db.BusArrivals
             .Where(a => a.BusName == bus)
             .OrderByDescending(a => a.ArrivalTime)
+            .Select(a => a.ToDto())
             .ToListAsync();
-
-        return arrivals;
     }
 
-    public async Task<IEnumerable<BusArrival>> GetArrivalsAsync(
+    public async Task<IEnumerable<BusArrivalDto>> GetArrivalsAsync(
         DateOnly? start = null,
         DateOnly? end = null)
     {
@@ -50,14 +51,16 @@ public class BusInfoService(AppDbContext db) : IBusInfoService
 
         return await query
             .OrderByDescending(a => a.ArrivalTime)
+            .Select(a => a.ToDto())
             .ToListAsync();
     }
 
-    public async Task<BusInfo?> GetInfoByBusAsync(string bus)
+    public async Task<BusInfoDto?> GetInfoByBusAsync(string bus)
     {
         return await db.BusInfos
             .Where(i => i.Name == bus)
             .Include(i => i.Company)
+            .Select(i => i.ToDto())
             .FirstOrDefaultAsync();
     }
 }

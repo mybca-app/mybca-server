@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using MyBCA.Server.Dtos.News;
+using MyBCA.Server.Mappings;
 using MyBCA.Server.Models;
 using MyBCA.Server.Models.News;
 using WordPressPCL;
@@ -48,12 +50,12 @@ public class NewsService(IOptions<NewsOptions> options, ILogger<NewsService> log
         return null;
     }
 
-    public async Task<IEnumerable<NewsStory>> GetLatestStoriesAsync()
+    public async Task<IEnumerable<NewsStoryDto>> GetLatestStoriesAsync()
     {
         if (cache.TryGetValue<CacheItem<IEnumerable<NewsStory>>>(CacheKey, out var cachedStories))
         {
             logger.LogDebug("Using cached news data");
-            return cachedStories!.Value;
+            return cachedStories!.Value.Select(s => s.ToDto());
         }
 
         logger.LogDebug("Fetching new news data");
@@ -89,16 +91,16 @@ public class NewsService(IOptions<NewsOptions> options, ILogger<NewsService> log
             Expiry = DateTime.Now + options.Value.CacheTtl
         }, cacheEntryOptions);
 
-        return stories;
+        return stories.Select(s => s.ToDto());
     }
 
-    public async Task<NewsStory> GetLatestStoryAsync()
+    public async Task<NewsStoryDto> GetLatestStoryAsync()
     {
         var latestList = await GetLatestStoriesAsync();
         return latestList.First();
     }
 
-    public async Task<NewsStory?> GetStoryById(int id)
+    public async Task<NewsStoryDto?> GetStoryById(int id)
     {
         var post = await _wordpressClient.Posts.GetByIDAsync(id);
         if (post is null)
@@ -114,6 +116,6 @@ public class NewsService(IOptions<NewsOptions> options, ILogger<NewsService> log
             ImageLink: mediaUrl,
             ContentHtml: post.Content.Rendered,
             CreatedAt: post.DateGmt
-        );
+        ).ToDto();
     }
 }

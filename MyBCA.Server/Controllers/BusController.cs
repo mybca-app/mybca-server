@@ -41,7 +41,7 @@ public class BusController(IBusService busService, IBusInfoService busInfoServic
             );
         }
 
-        return Ok(info.ToDto());
+        return Ok(info);
     }
 
     [EndpointSummary("Retrieves a history of a bus's arrivals")]
@@ -50,19 +50,19 @@ public class BusController(IBusService busService, IBusInfoService busInfoServic
     {
         var arrivals = await busInfoService.GetArrivalsByBusAsync(bus);
 
-        return Ok(arrivals.Select(a => a.ToDto()));
+        return Ok(arrivals);
     }
 
     [EndpointSummary("Generates a CSV report of all bus arrival data")]
     [HttpGet("reports/generate")]
     public async Task<FileContentResult> GenerateReport(DateOnly? start = null, DateOnly? end = null)
     {
-        var dtos = (await busInfoService.GetArrivalsAsync(start, end)).Select(a => a.ToDto());
+        var arrivals = await busInfoService.GetArrivalsAsync(start, end);
 
         var sb = new StringBuilder();
         sb.AppendLine("bus_name,bus_position,detected_date,detected_time");
 
-        foreach (var arrival in dtos)
+        foreach (var arrival in arrivals)
         {
             var local = arrival.ArrivalTime.ToLocalTime();
             var date = local.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
