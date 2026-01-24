@@ -8,7 +8,7 @@ using MyBCA.Server.Mappings;
 namespace MyBCA.Server.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/news")]
 [EnableCors("AllowAll")]
 public class NewsController(INewsService newsService) : ControllerBase
 {
