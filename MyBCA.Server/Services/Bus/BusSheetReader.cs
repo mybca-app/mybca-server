@@ -10,9 +10,13 @@ static class BusSheetReader
         var table = doc.DocumentNode.SelectSingleNode("//table[contains(@class, 'waffle')]")
             ?? throw new InvalidDataException("Table not found on page");
 
-        // Skip first row (header)
+        // Skip first row (header) and get all table rows.
         var rows = table.SelectNodes("tbody/tr").Cast<HtmlNode>().Skip(1);
         var positionMap = new Dictionary<string, string>();
+
+        // Keep track of blank name-location pairs found. There is one row of blank pairs under
+        // the header.
+        var blankPairsScanned = 0;
 
         foreach (var row in rows)
         {
@@ -22,10 +26,18 @@ static class BusSheetReader
                 var cellContent = cells.ElementAt(i).InnerText;
                 if (string.IsNullOrWhiteSpace(cellContent))
                 {
+                    blankPairsScanned++;
                     continue;
                 }
 
                 positionMap[cellContent] = cells.ElementAt(i + 1).InnerText;
+            }
+
+            // If we've scanned two rows of whitespace, then there are no more positions to read.
+            // We're done!
+            if (blankPairsScanned >= 4)
+            {
+                break;
             }
         }
 
