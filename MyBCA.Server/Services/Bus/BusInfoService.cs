@@ -57,10 +57,29 @@ public class BusInfoService(AppDbContext db) : IBusInfoService
 
     public async Task<BusInfoDto?> GetInfoByBusAsync(string bus)
     {
+        var averageArrival = await GetAverageArrivalTimeAsync(bus);
+
         return await db.BusInfos
             .Where(i => i.Name == bus)
             .Include(i => i.Company)
-            .Select(i => i.ToDto())
+            .Select(i => i.ToDto(averageArrival))
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<TimeOnly?> GetAverageArrivalTimeAsync(string bus)
+    {
+        var result = await db.Database
+            .SqlQueryRaw<TimeSpan?>(@"
+            SELECT SEC_TO_TIME(
+                AVG(TIME_TO_SEC(TIME(CONVERT_TZ(ArrivalTime, 'UTC', 'America/New_York'))))
+            ) AS Value
+            FROM BusArrivals
+            WHERE BusName = {0}
+                AND TIME(CONVERT_TZ(ArrivalTime, 'UTC', 'America/New_York'))
+                    BETWEEN '15:00:00' AND '17:00:00'
+        ", bus)
+            .FirstOrDefaultAsync();
+
+        return result.HasValue ? TimeOnly.FromTimeSpan(result.Value) : null;
     }
 }

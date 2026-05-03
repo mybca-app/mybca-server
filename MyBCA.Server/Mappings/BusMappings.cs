@@ -21,11 +21,12 @@ public static class BusMappings
         );
     }
 
-    public static BusInfoDto ToDto(this BusInfo info)
+    public static BusInfoDto ToDto(this BusInfo info, TimeOnly? averageArrivalTime)
     {
         return new BusInfoDto(
             Name: info.Name,
-            Company: info.Company?.ToDto()
+            Company: info.Company?.ToDto(),
+            AverageArrivalTime: averageArrivalTime
         );
     }
 }

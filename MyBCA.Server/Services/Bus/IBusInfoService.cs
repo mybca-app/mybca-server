@@ -9,4 +9,5 @@ public interface IBusInfoService
     Task<IEnumerable<BusArrivalDto>> GetArrivalsByBusAsync(string bus);
     Task<IEnumerable<BusArrivalDto>> GetArrivalsAsync(DateOnly? start, DateOnly? end);
     Task<BusInfoDto?> GetInfoByBusAsync(string bus);
+    Task<TimeOnly?> GetAverageArrivalTimeAsync(string bus);
 }
