@@ -95,13 +95,6 @@ public class BusScanService(IServiceProvider services, FcmService fcmService, Ht
                         ? now.AddSeconds(15)
                         : now.AddMinutes(5);
 
-                if (nextRun.DayOfWeek == DayOfWeek.Saturday || nextRun.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    nextRun = nextRun.AddDays(1);
-                    while (nextRun.DayOfWeek == DayOfWeek.Saturday || nextRun.DayOfWeek == DayOfWeek.Sunday)
-                        nextRun = nextRun.AddDays(1);
-                }
-
                 logger.LogDebug("Next run: {NextRun}", nextRun);
 
                 if (_positionMap is not null)
